@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: 6f207de70af4ac64c9248d35e0fbca3e
+timeCreated: 1724663890
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  externalObjects: {}
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Lets Party
+  - Resource Han Rounded KR
+  - Mitr
+  - Noto
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 87679100f40c3144a817b74a3df4fa6a, type: 3}
+  - {fileID: 12800000, guid: 5529cfcf964c23d4faaa89d3c94eafa1, type: 3}
+  - {fileID: 12800000, guid: 1c071ca20d9a4564d8ed79fad766e4a3, type: 3}
+  - {fileID: 12800000, guid: 28a1d0097e9aa42449a293dbda47e566, type: 3}
+  - {fileID: 12800000, guid: 794e8db6b48c9e24a9a4dabcf1e86878, type: 3}
+  - {fileID: 12800000, guid: cc2798e878a14df4ebefaa77d0230e85, type: 3}
+  customCharacters:
+  fontRenderingMode: 0
+  output:
+    hasEmptyFontData: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData:
+  assetBundleName:
+  assetBundleVariant:
