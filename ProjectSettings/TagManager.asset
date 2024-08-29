@@ -5,6 +5,30 @@ TagManager:
   serializedVersion: 2
   tags:
   - Character
+  - CharacterFist
+  - Rhand
+  - CharacterFoot
+  - Lhand
+  - CharacterHip
+  - CharacterChest
+  - CharacterHead
+  - Helper (Kill Volume)
+  - Debug Manager
+  - Input Manager
+  - Prop (Low Priority)
+  - Can Climb
+  - TrackingCanvas
+  - Cant Climb
+  - Camera Target
+  - Pause Menu
+  - 506c61796572
+  - Body (Low Priority)
+  - Body (Medium Priority)
+  - Body (High Priority)
+  - Camera Target (Track)
+  - Prop (Medium Priority)
+  - Actor
+  - Global Manager
   layers:
   - Default
   - TransparentFX
@@ -13,9 +37,9 @@ TagManager:
   - Water
   - UI
   - OverUI
-  - 
-  - 
-  - 
+  - Ignore All
+  - Actor
+  - Ball
   - 
   - 
   - 
