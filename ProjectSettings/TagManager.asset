@@ -4,31 +4,58 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Character
-  - CharacterFist
-  - Rhand
-  - CharacterFoot
-  - Lhand
-  - CharacterHip
-  - CharacterChest
-  - CharacterHead
-  - Helper (Kill Volume)
-  - Debug Manager
-  - Input Manager
-  - Prop (Low Priority)
-  - Can Climb
-  - TrackingCanvas
-  - Cant Climb
-  - Camera Target
-  - Pause Menu
-  - 506c61796572
-  - Body (Low Priority)
-  - Body (Medium Priority)
-  - Body (High Priority)
-  - Camera Target (Track)
-  - Prop (Medium Priority)
-  - Actor
   - Global Manager
+  - Body (High Priority)
+  - Body (Medium Priority)
+  - Body (Low Priority)
+  - Body (Harmful)
+  - Prop (High Priority)
+  - Prop (Medium Priority)
+  - Prop (Low Priority)
+  - Prop (Harmful)
+  - Status Bar Canvas
+  - Camera Target (Track)
+  - Camera Target (Dont Track)
+  - Can Climb
+  - Cant Climb
+  - Helper (Grab Target)
+  - Helper (Kill Volume)
+  - Grab Target
+  - Actor
+  - Game Manager
+  - Helper (Spawn Point)
+  - Helper (Despawn Volume)
+  - Manager (Rewired)
+  - Target
+  - Helper (Race Finishline)
+  - Music
+  - Input Manager
+  - Voice (Laugh)
+  - Voice (KO)
+  - Voice (Death)
+  - Camera Target
+  - Helper (Falling Kill Volume)
+  - Voice (Break)
+  - Debug Manager
+  - UI
+  - Helper (Game Manager)
+  - 506c61796572
+  - Glass
+  - DynamicWater
+  - DynamicWaterObstruction
+  - DynamicWaterObstructionInverted
+  - DynamicWaterPlaneCollider
+  - Helper (Spawn Group 1)
+  - Helper (Spawn Group 2)
+  - Helper (Spawn Group 3)
+  - Helper (Spawn Group 4)
+  - Helper (Spawn Group 5)
+  - Pause Menu
+  - Throw Point
+  - TrackingCanvas
+  - Water
+  - Helper (AI Spawn)
+  - Ignore Impacts
   layers:
   - Default
   - TransparentFX
@@ -36,32 +63,32 @@ TagManager:
   - 
   - Water
   - UI
-  - OverUI
-  - Ignore All
+  - 
+  - 
   - Actor
   - Ball
+  - Ignore Self
+  - Ball Only
+  - Force Volume
+  - Glass
+  - Glass Only
+  - Camera
+  - Ignore Camera
+  - Ignore Glass
+  - Ignore Self & Raycast
+  - Ignore All
+  - Environment
+  - Ignore Actors
+  - Actor Only
+  - UILoading
+  - UIAdditional
+  - UnseenFaces
+  - DefaultNonActor
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - DynamicWaterPlaneCollider
   m_SortingLayers:
   - name: Default
     uniqueID: 0
