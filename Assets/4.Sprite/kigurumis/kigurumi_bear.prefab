@@ -262,7 +262,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4052246636378907}
   - component: {fileID: 137652909449757761}
-  - component: {fileID: 114586600166632204}
   m_Layer: 0
   m_Name: bearKigurumi
   m_TagString: Untagged
@@ -358,29 +357,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000000059604645, y: 0.33045027, z: 0.035651043}
     m_Extent: {x: 0.97516215, y: 0.8382249, z: 0.34185714}
   m_DirtyAABB: 0
---- !u!114 &114586600166632204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1167703307632138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f3b7605aeacbe2acd7eba423c6383a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ReduceUsingMesh: 1
-  PartSize: 3
-  CollidersRoot: {fileID: 4121078646494904}
-  KeepInColliders: []
-  KeepOutColliders:
-  - {fileID: 136492526113439933}
-  - {fileID: 136983428202712190}
-  - {fileID: 135477233504228550}
-  - {fileID: 135255335739446267}
-  - {fileID: 135989715228703627}
-  MeshOffset: {fileID: 4914481640936966}
 --- !u!1 &1183459384852536
 GameObject:
   m_ObjectHideFlags: 0
