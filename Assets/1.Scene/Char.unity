@@ -6887,7 +6887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 0e45a93fc4da40a43a4f0b3e4997eada, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: ccc17464c2f446345b561e252b18d8fc, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -6899,10 +6899,26 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 198274290898828805}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cf52108e-5628-4b72-8684-5273b4a8825a
+    m_ActionName: PlayerAction/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: PlayerAction
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!143 &6498420138110432265
@@ -6943,8 +6959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69931b4a96fddf74baa93803d3a4d4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 6498420138110432265}
-  speed: 5
+  characterController: {fileID: 0}
 --- !u!1 &6708952399469309515
 GameObject:
   m_ObjectHideFlags: 0
