@@ -8,10 +8,13 @@ namespace Character
         private CharacterController characterController;
         private Vector3 moveDirection;
         private float moveSpeed = 4f;
+        private float rotationSpeed = 4f; // 회전 속도 변수
+        private Actor actor;
 
         private void Awake()
         {
             characterController = GetComponent<CharacterController>();
+            actor = GetComponent<Actor>();
         }
 
         private void Update()
@@ -20,10 +23,16 @@ namespace Character
 
             if (hasControl)
             {
-                transform.rotation = Quaternion.LookRotation(moveDirection);
+                actor.actorState = Actor.ActorState.Run;
+
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                actor.movementHandeler.direction = Vector3.Slerp(actor.movementHandeler.direction, moveDirection, rotationSpeed * Time.deltaTime);
 
                 characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
             }
+
         }
 
         private void OnMove(InputValue value)
@@ -37,6 +46,8 @@ namespace Character
             {
                 moveDirection = Vector3.zero;
             }
+
+            actor.actorState = Actor.ActorState.Stand;
         }
     }
 }

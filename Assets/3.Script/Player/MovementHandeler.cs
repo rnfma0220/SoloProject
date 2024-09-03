@@ -24,7 +24,11 @@ namespace Character
 
         public Actor actor;
 
-        public float armCheeringForce = 10f;
+		public Vector3 direction;
+		public Vector3 rawDirection;
+		public Vector3 lookDirection;
+
+		public float armCheeringForce = 10f;
 
         public bool stateChange = true;
 
@@ -42,7 +46,6 @@ namespace Character
 
 		public void AlignToVector(Rigidbody part, Vector3 alignmentVector, Vector3 targetVector, float stability, float speed)
 		{
-			//계산된 목표값에 따라 addtorque
 			if (part == null)
 			{
 				return;

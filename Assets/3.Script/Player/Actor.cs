@@ -14,7 +14,7 @@ namespace Character
         {
             Dead = 0, // 사망
             Unconscious = 1, // 기절
-            Stand = 2, // 가만히 서있음
+            Stand = 2, // 서있는상태
             Run = 3, // 움직이는중
             Jump = 4, // 점프중
             Fall = 5 // 일어나는중
@@ -38,7 +38,8 @@ namespace Character
 
             movementHandeler = new MovementHandeler_humanoid();
             movementHandeler.actor = this;
-
+            movementHandeler.direction = bodyType.Chest.PartTransform.forward;
+            movementHandeler.lookDirection = movementHandeler.direction + new Vector3(0f, 0.1f, 0f);
         }
 
         private void FixedUpdate()
