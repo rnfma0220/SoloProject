@@ -17,7 +17,6 @@ namespace Character
             Stand = 2, // 서있는상태
             Run = 3, // 움직이는중
             Jump = 4, // 점프중
-            Fall = 5 // 일어나는중
         }
 
         public ActorState actorState;
@@ -26,15 +25,28 @@ namespace Character
 
         public MovementHandeler movementHandeler;
 
+        public PlayerController player;
+
+        public float LeftholdThreshold = 0.5f;
+        public bool LeftisHolding = false;
+        public float LeftholdTimer = 0f;
+
+        public float RightholdThreshold = 0.5f;
+        public bool RightisHolding = false;
+        public float RightholdTimer = 0f;
+
         public bool showForces = true; // 디버그 레이용
 
         public float applyedForce = 1f;
+
+        public bool isGround = true;
 
         public float inputSpamForceModifier = 1f;
 
         private void Start()
         {
             bodyType = GetComponent<BodyType>();
+            player = GetComponent<PlayerController>();
 
             movementHandeler = new MovementHandeler_humanoid();
             movementHandeler.actor = this;
@@ -44,7 +56,61 @@ namespace Character
 
         private void FixedUpdate()
         {
+            if (LeftisHolding)
+            {
+                LeftholdTimer += Time.deltaTime;
+
+                if (LeftholdTimer >= LeftholdThreshold)
+                {
+                    Debug.Log("왼손 잡기");
+                }
+                else
+                {
+                    Debug.Log("왼손 펀치발사");
+                }
+            }
+
+            if (RightisHolding)
+            {
+                RightholdTimer += Time.deltaTime;
+
+                if(RightholdTimer >= RightholdThreshold)
+                {
+                    Debug.Log("오른손 잡기");
+                }
+                else
+                {
+                    Debug.Log("오른손 펀치발사");
+                }
+            }
+            IsGroundedCustom();
             UpdateState();
+        }
+
+        public void IsGroundedCustom() // 점프후에 바닥에 닿는다면 서있는 상태로 바꾸기 위함
+        {
+            if(actorState != ActorState.Jump) return; 
+
+            RaycastHit hit;
+            float rayDistance = 0.1f;
+            if (Physics.Raycast(bodyType.LeftFoot.PartTransform.position, Vector3.down, out hit, rayDistance))
+            {
+                if(hit.transform.CompareTag("Ground"))
+                {
+                    actorState = ActorState.Stand;
+                    isGround = true;
+                }
+            }
+        }
+
+        private void LeftPunch()
+        {
+
+        }
+
+        private void RightPunch()
+        {
+
         }
 
         private void UpdateState()
@@ -75,14 +141,11 @@ namespace Character
                 case ActorState.Jump:
                     movementHandeler.Jump();
                     break;
-                case ActorState.Fall:
-                    movementHandeler.Fall();
-                    break;
             }
 
             lastActorState = actorState;
 
-            if (actorState == ActorState.Dead || actorState == ActorState.Unconscious || actorState == ActorState.Fall)
+            if (actorState == ActorState.Dead || actorState == ActorState.Unconscious)
             {
                 applyedForce = 0.1f;
                 inputSpamForceModifier = 1f;

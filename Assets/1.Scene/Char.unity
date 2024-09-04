@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1223388951}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 1896696685}
   - component: {fileID: 1896696684}
   - component: {fileID: 1896696687}
+  - component: {fileID: 1896696688}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -432,12 +433,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896696683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.137531, y: 0, z: 0, w: 0.99049747}
+  m_LocalRotation: {x: 0.137531, y: -0, z: -0, w: 0.99049747}
   m_LocalPosition: {x: 0, y: 2.2, z: -3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 365741873466045416}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15.81, y: 0, z: 0}
 --- !u!114 &1896696687
 MonoBehaviour:
@@ -483,6 +484,26 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &1896696688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896696683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ba9a7a6d76e764e9afd6fe3b7a83eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4885989812234415474}
+  distanceFromTarget: 4
+  sensitivityX: 3
+  sensitivityY: 2
+  minYAngle: 20
+  maxYAngle: 50
+  minXAngle: -40
+  maxXAngle: 40
 --- !u!153 &2844081936493320
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -2421,7 +2442,7 @@ GameObject:
   - component: {fileID: 6498420138110432264}
   - component: {fileID: 6498420138110432265}
   - component: {fileID: 6498420138110432266}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: actor_humanoid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3100,7 +3121,6 @@ Transform:
   - {fileID: 1843407598417484862}
   - {fileID: 5754409423421762083}
   - {fileID: 4871849054905925605}
-  - {fileID: 1896696686}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &448179339901044457
@@ -3684,8 +3704,16 @@ MonoBehaviour:
   bodyType: {fileID: 0}
   actorState: 2
   lastActorState: 2
+  player: {fileID: 0}
+  LeftholdThreshold: 0.5
+  LeftisHolding: 0
+  LeftholdTimer: 0
+  RightholdThreshold: 0.5
+  RightisHolding: 0
+  RightholdTimer: 0
   showForces: 1
   applyedForce: 1
+  isGround: 1
   inputSpamForceModifier: 1
 --- !u!1 &1041510166183287048
 GameObject:
@@ -4629,7 +4657,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.024688104, y: -0.33741313, z: 0.019066842}
+  m_ConnectedAnchor: {x: 0.024688074, y: -0.33741307, z: 0.019066846}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -6889,7 +6917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: ccc17464c2f446345b561e252b18d8fc, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -6903,13 +6931,13 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 198274290898828805}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 6498420138110432266}
+        m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6917,6 +6945,74 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cf52108e-5628-4b72-8684-5273b4a8825a
     m_ActionName: PlayerAction/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6498420138110432266}
+        m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 067a5365-c435-4ae0-978c-3a55d9fb9ace
+    m_ActionName: PlayerAction/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6498420138110432266}
+        m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
+        m_MethodName: OnLeftHand
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 073c21f2-b4d8-4b95-86fa-14f6cee2d03e
+    m_ActionName: PlayerAction/LeftHand[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6498420138110432266}
+        m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
+        m_MethodName: OnRightHand
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d100c757-724a-418e-bc80-73d74dd5265b
+    m_ActionName: PlayerAction/RightHand[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3ee24ef2-cd68-45cc-809c-65a4d712bef1
+    m_ActionName: Camera/Lock
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6498420138110432266}
+        m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
+        m_MethodName: OnRun
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 80f0c73a-c152-41ce-ae82-0559d382dca8
+    m_ActionName: PlayerAction/Run[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerAction
@@ -8221,7 +8317,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.02468809, y: -0.33741263, z: 0.019066967}
+  m_ConnectedAnchor: {x: -0.02468806, y: -0.33741263, z: 0.019066967}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -8735,3 +8831,4 @@ SceneRoots:
   - {fileID: 1223388954}
   - {fileID: 151991166202308095}
   - {fileID: 365741873466045416}
+  - {fileID: 1896696686}

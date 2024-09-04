@@ -14,10 +14,9 @@ namespace Character
 
 		public enum Pose
 		{
-			Bent = 0,
-			Forward = 1,
-			Straight = 2,
-			Behind = 3
+			Forward = 0,
+			Stand = 1,
+			Behind = 2
 		}
 
 		public Transform localTransform;
@@ -41,8 +40,6 @@ namespace Character
 		public virtual void Run() { }
 
 		public virtual void Jump() { }
-
-		public virtual void Fall() { }
 
 		public void AlignToVector(Rigidbody part, Vector3 alignmentVector, Vector3 targetVector, float stability, float speed)
 		{

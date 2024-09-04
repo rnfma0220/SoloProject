@@ -56,6 +56,14 @@ TagManager:
   - Water
   - Helper (AI Spawn)
   - Ignore Impacts
+  - CharacterFist
+  - Rhand
+  - CharacterFoot
+  - Lhand
+  - CharacterHip
+  - CharacterChest
+  - CharacterHead
+  - Ground
   layers:
   - Default
   - TransparentFX
