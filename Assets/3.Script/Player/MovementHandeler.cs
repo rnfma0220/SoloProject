@@ -41,6 +41,10 @@ namespace Character
 
 		public virtual void Jump() { }
 
+		public virtual void ArmReadying(Side side) { }
+
+		public virtual void ArmPunching(Side side, Collider punchTarget) { }
+
 		public void AlignToVector(Rigidbody part, Vector3 alignmentVector, Vector3 targetVector, float stability, float speed)
 		{
 			if (part == null)

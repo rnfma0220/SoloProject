@@ -8,16 +8,21 @@ namespace Character
 {
     public class PlayerController : MonoBehaviour
     {
-        private CharacterController characterController;
         private Vector3 moveDirection;
         private float moveSpeed = 2f;
         private float rotationSpeed = 3f; // 회전 속도 변수
         private Actor actor;
+        public Collider PunchGrabTarget;
+
+        public bool LeftisHolding = false;
+        public float LeftholdTimer = 0f;
+
+        public bool RightisHolding = false;
+        public float RightholdTimer = 0f;
 
         private void Awake()
         {
-            characterController = GetComponent<CharacterController>();
-            actor = GetComponent<Actor>();
+            TryGetComponent(out actor);
         }
 
         private void Update()
@@ -27,13 +32,48 @@ namespace Character
             if (hasControl)
             {
                 actor.actorState = Actor.ActorState.Run;
+
+                // 이동 방향에 따른 회전
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
                 actor.movementHandeler.direction = Vector3.Slerp(actor.movementHandeler.direction, moveDirection, rotationSpeed * Time.deltaTime);
 
-                characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
+                // Transform을 사용한 이동
+                transform.Translate(moveDirection * moveSpeed * Time.deltaTime, Space.World);
             }
+        }
+
+        private void LateUpdate()
+        {
+            if (LeftisHolding)
+            {
+                LeftholdTimer += Time.deltaTime;
+
+                if (LeftholdTimer < 0.1f)
+                {
+                    actor.movementHandeler.ArmReadying(MovementHandeler.Side.Left);
+                }
+                if (LeftholdTimer < 0.2f)
+                {
+                    actor.movementHandeler.ArmPunching(MovementHandeler.Side.Left, PunchGrabTarget);
+                }
+            }
+
+            if (RightisHolding)
+            {
+                RightholdTimer += Time.deltaTime;
+
+                if (RightholdTimer < 0.1f)
+                {
+                    actor.movementHandeler.ArmReadying(MovementHandeler.Side.Right);
+                }
+                if (RightholdTimer < 0.2f)
+                {
+                    actor.movementHandeler.ArmPunching(MovementHandeler.Side.Right, PunchGrabTarget);
+                }
+            }
+
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -69,7 +109,7 @@ namespace Character
         {
             if (context.phase == InputActionPhase.Canceled)
             {
-                if(actor.isGround)
+                if (actor.isGround)
                 {
                     actor.actorState = Actor.ActorState.Jump;
                 }
@@ -80,29 +120,30 @@ namespace Character
         {
             if (context.phase == InputActionPhase.Started)
             {
-                actor.LeftisHolding = true;
-                actor.LeftholdTimer = 0f;
+                LeftisHolding = true;
+                LeftholdTimer = 0f;
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
-                actor.LeftisHolding = false;
-                actor.LeftholdTimer = 0f;
+                LeftisHolding = false;
+                LeftholdTimer = 0f;
             }
         }
 
         public void OnRightHand(InputAction.CallbackContext context)
         {
+
             if (context.phase == InputActionPhase.Started)
             {
-                actor.RightisHolding = true;
-                actor.RightholdTimer = 0f;
+                RightisHolding = true;
+                RightholdTimer = 0f;
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
-                actor.RightisHolding = false;
-                actor.RightholdTimer = 0f;
+                RightisHolding = false;
+                RightholdTimer = 0f;
             }
         }
     }

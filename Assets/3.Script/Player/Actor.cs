@@ -27,14 +27,6 @@ namespace Character
 
         public PlayerController player;
 
-        public float LeftholdThreshold = 0.5f;
-        public bool LeftisHolding = false;
-        public float LeftholdTimer = 0f;
-
-        public float RightholdThreshold = 0.5f;
-        public bool RightisHolding = false;
-        public float RightholdTimer = 0f;
-
         public bool showForces = true; // 디버그 레이용
 
         public float applyedForce = 1f;
@@ -42,6 +34,7 @@ namespace Character
         public bool isGround = true;
 
         public float inputSpamForceModifier = 1f;
+
 
         private void Start()
         {
@@ -56,33 +49,6 @@ namespace Character
 
         private void FixedUpdate()
         {
-            if (LeftisHolding)
-            {
-                LeftholdTimer += Time.deltaTime;
-
-                if (LeftholdTimer >= LeftholdThreshold)
-                {
-                    Debug.Log("왼손 잡기");
-                }
-                else
-                {
-                    Debug.Log("왼손 펀치발사");
-                }
-            }
-
-            if (RightisHolding)
-            {
-                RightholdTimer += Time.deltaTime;
-
-                if(RightholdTimer >= RightholdThreshold)
-                {
-                    Debug.Log("오른손 잡기");
-                }
-                else
-                {
-                    Debug.Log("오른손 펀치발사");
-                }
-            }
             IsGroundedCustom();
             UpdateState();
         }
@@ -101,16 +67,6 @@ namespace Character
                     isGround = true;
                 }
             }
-        }
-
-        private void LeftPunch()
-        {
-
-        }
-
-        private void RightPunch()
-        {
-
         }
 
         private void UpdateState()
