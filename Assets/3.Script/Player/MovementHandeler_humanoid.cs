@@ -66,7 +66,89 @@ namespace Character
         {
             if (stateChange)
             {
-                
+                // 점프는 또 어떻게해아할까~!~!~!
+            }
+        }
+
+        public override void Dead()
+        {
+
+        }
+
+        public override void Unconscious()
+        {
+
+        }
+
+        public override void ArmReadying(Side side)
+        {
+            Transform partTransform = actor.bodyType.Chest.PartTransform;
+            Transform transform = null;
+            Transform transform2 = null;
+            Rigidbody part = null;
+            Rigidbody part2 = null;
+            switch (side)
+            {
+                case Side.Left:
+                    transform = actor.bodyType.LeftArm.PartTransform;
+                    transform2 = actor.bodyType.LeftForarm.PartTransform;
+                    part = actor.bodyType.LeftArm.PartRigidbody;
+                    part2 = actor.bodyType.LeftForarm.PartRigidbody;
+                    break;
+                case Side.Right:
+                    transform = actor.bodyType.RightArm.PartTransform;
+                    transform2 = actor.bodyType.RightForarm.PartTransform;
+                    part = actor.bodyType.RightArm.PartRigidbody;
+                    part2 = actor.bodyType.RightForarm.PartRigidbody;
+                    break;
+            }
+            AlignToVector(part, transform.up, partTransform.forward + -partTransform.up, 0.01f, 10f);
+            AlignToVector(part2, transform2.up, -partTransform.forward + -partTransform.up, 0.01f, 10f);
+        }
+
+        public override void ArmPunching(Side side, Collider punchTarget)
+        {
+            Transform partTransform = actor.bodyType.Chest.PartTransform;
+            Transform transform = null;
+            Transform transform2 = null;
+            Rigidbody rigidbody = null;
+            Rigidbody rigidbody2 = null;
+            switch (side)
+            {
+                case Side.Left:
+                    transform = actor.bodyType.LeftArm.PartTransform;
+                    transform2 = actor.bodyType.LeftHand.PartTransform;
+                    rigidbody = actor.bodyType.LeftArm.PartRigidbody;
+                    rigidbody2 = actor.bodyType.LeftHand.PartRigidbody;
+                    break;
+
+                case Side.Right:
+                    transform = actor.bodyType.RightArm.PartTransform;
+                    transform2 = actor.bodyType.RightHand.PartTransform;
+                    rigidbody = actor.bodyType.RightArm.PartRigidbody;
+                    rigidbody2 = actor.bodyType.RightHand.PartRigidbody;
+                    break;
+            }
+            transform2.tag = "Body (Harmful)";
+            Vector3 zero = Vector3.zero;
+            if (punchTarget == null)
+            {
+                zero = Vector3.Normalize(partTransform.position + partTransform.forward + partTransform.up / 2f - transform2.position);
+                rigidbody.AddForce(-(zero * 3f) * actor.inputSpamForceModifier, ForceMode.VelocityChange);
+                rigidbody2.AddForce(zero * 3f * actor.inputSpamForceModifier, ForceMode.VelocityChange);
+                actor.bodyType.Hips.PartRigidbody.constraints = RigidbodyConstraints.None;
+                return;
+            }
+            zero = Vector3.Normalize(punchTarget.bounds.center - transform2.position);
+            if (Vector3.Distance(punchTarget.bounds.center, transform.position) > 1f)
+            {
+                rigidbody.AddForce(-(zero * 3f) * actor.inputSpamForceModifier, ForceMode.VelocityChange);
+                rigidbody2.AddForce(zero * 3f * actor.inputSpamForceModifier, ForceMode.VelocityChange);
+            }
+            else
+            {
+                rigidbody.AddForce(-(zero * 3f) * actor.inputSpamForceModifier, ForceMode.VelocityChange);
+                rigidbody2.AddForce(zero * 3f * actor.inputSpamForceModifier, ForceMode.VelocityChange);
             }
         }
     }
