@@ -64,20 +64,24 @@ namespace Character
 
         public override void Jump()
         {
-            if (stateChange)
-            {
-                // 점프는 또 어떻게해아할까~!~!~!
-            }
+            float Jumppos = 3f;
+
+            actor.bodyType.Chest.PartRigidbody.AddForce(Vector3.up * Jumppos, ForceMode.VelocityChange);
+            actor.bodyType.Hips.PartRigidbody.AddForce(Vector3.up * Jumppos, ForceMode.VelocityChange);
+            actor.bodyType.Waist.PartRigidbody.AddForce(Vector3.up * Jumppos, ForceMode.VelocityChange);
+
+            actor.Invoke("ts", 0.5f);
+
         }
 
         public override void Dead()
         {
-
+            actor.bodyType.Chest.PartRigidbody.constraints = RigidbodyConstraints.None;
         }
 
         public override void Unconscious()
         {
-
+            actor.bodyType.Chest.PartRigidbody.constraints = RigidbodyConstraints.None;
         }
 
         public override void ArmReadying(Side side)
@@ -113,6 +117,7 @@ namespace Character
             Transform transform2 = null;
             Rigidbody rigidbody = null;
             Rigidbody rigidbody2 = null;
+            actor.bodyType.Chest.PartRigidbody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
             switch (side)
             {
                 case Side.Left:
@@ -136,7 +141,6 @@ namespace Character
                 zero = Vector3.Normalize(partTransform.position + partTransform.forward + partTransform.up / 2f - transform2.position);
                 rigidbody.AddForce(-(zero * 3f) * actor.inputSpamForceModifier, ForceMode.VelocityChange);
                 rigidbody2.AddForce(zero * 3f * actor.inputSpamForceModifier, ForceMode.VelocityChange);
-                actor.bodyType.Hips.PartRigidbody.constraints = RigidbodyConstraints.None;
                 return;
             }
             zero = Vector3.Normalize(punchTarget.bounds.center - transform2.position);
@@ -149,7 +153,7 @@ namespace Character
             {
                 rigidbody.AddForce(-(zero * 3f) * actor.inputSpamForceModifier, ForceMode.VelocityChange);
                 rigidbody2.AddForce(zero * 3f * actor.inputSpamForceModifier, ForceMode.VelocityChange);
-            }
+            }     
         }
     }
 }
