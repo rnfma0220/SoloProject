@@ -49,7 +49,7 @@ namespace Character
 
         private void FixedUpdate()
         {
-            IsGroundedCustom();
+            //IsGroundedCustom();
             UpdateState();
         }
 
@@ -67,6 +67,11 @@ namespace Character
                     isGround = true;
                 }
             }
+        }
+
+        public void ts()
+        {
+            actorState = ActorState.Stand;
         }
 
         private void UpdateState()

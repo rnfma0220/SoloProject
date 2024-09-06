@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class CameraController : MonoBehaviour
 {
     public Transform target; // 카메라가 따라갈 캐릭터
@@ -9,8 +10,7 @@ public class CameraController : MonoBehaviour
     public float sensitivityY = 2f; // 마우스 수직 민감도
     public float minYAngle = 20f; // 카메라 수직 최소 각도
     public float maxYAngle = 50f; // 카메라 수직 최대 각도
-    public float minXAngle = -40f; // 카메라 수평 최소 각도
-    public float maxXAngle = 40f;  // 카메라 수평 최대 각도
+
     private float currentYaw = 0f;
     private float currentPitch = 0f;
 
@@ -26,9 +26,8 @@ public class CameraController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
-        // 수평 회전 (Yaw) - X축 회전에 대한 각도 제한 추가
+        // 수평 회전 (Yaw) - 제한 제거
         currentYaw += mouseX * sensitivityX;
-        currentYaw = Mathf.Clamp(currentYaw, minXAngle, maxXAngle); // X축(Yaw) 각도 제한
 
         // 수직 회전 (Pitch)
         currentPitch -= mouseY * sensitivityY;
@@ -41,4 +40,3 @@ public class CameraController : MonoBehaviour
         transform.LookAt(target); // 카메라가 항상 캐릭터를 바라보도록 설정
     }
 }
-

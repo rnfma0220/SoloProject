@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 1725478353}
   - component: {fileID: 1725478352}
   - component: {fileID: 1725478351}
+  - component: {fileID: 1725478355}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -451,6 +452,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1725478355
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725478350}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1896696683
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,13 +566,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896696683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.137531, y: -0, z: -0, w: 0.99049747}
-  m_LocalPosition: {x: 0, y: 2.2, z: -3.3}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 2.46, z: -3.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 15.81, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!114 &1896696687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,8 +635,6 @@ MonoBehaviour:
   sensitivityY: 2
   minYAngle: 20
   maxYAngle: 50
-  minXAngle: -40
-  maxXAngle: 40
 --- !u!153 &2844081936493320
 ConfigurableJoint:
   m_ObjectHideFlags: 0
@@ -2546,6 +2572,7 @@ GameObject:
   - component: {fileID: 3481781554315596208}
   - component: {fileID: 6498420138110432264}
   - component: {fileID: 6498420138110432265}
+  - component: {fileID: 6498420138110432266}
   m_Layer: 0
   m_Name: actor_humanoid
   m_TagString: Untagged
@@ -3655,7 +3682,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3088735277381630219}
   serializedVersion: 4
-  m_Mass: 2
+  m_Mass: 5
   m_Drag: 1
   m_AngularDrag: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4755,7 +4782,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.024688015, y: -0.33741307, z: 0.019066846}
+  m_ConnectedAnchor: {x: 0.024688104, y: -0.33741313, z: 0.019066842}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -6270,7 +6297,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.478, z: -0.01}
+  m_ConnectedAnchor: {x: 0, y: 0.2124297, z: -0.010308014}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -7045,9 +7072,9 @@ MonoBehaviour:
     m_ActionName: PlayerAction/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 198274290898828805}
+      - m_Target: {fileID: 6498420138110432265}
         m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7097,9 +7124,9 @@ MonoBehaviour:
     m_ActionName: Camera/Lock
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 198274290898828805}
+      - m_Target: {fileID: 6498420138110432265}
         m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnRun
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7129,10 +7156,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PunchGrabTarget: {fileID: 0}
-  LeftisHolding: 0
-  LeftholdTimer: 0
-  RightisHolding: 0
-  RightholdTimer: 0
+  gravity: -9.81
+--- !u!143 &6498420138110432266
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198274290898828805}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 2281701174
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 2281701174
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &6708952399469309515
 GameObject:
   m_ObjectHideFlags: 0
@@ -8394,7 +8444,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.024688, y: -0.33741263, z: 0.019066967}
+  m_ConnectedAnchor: {x: -0.02468809, y: -0.33741263, z: 0.019066967}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -8908,5 +8958,5 @@ SceneRoots:
   - {fileID: 1223388954}
   - {fileID: 151991166202308095}
   - {fileID: 365741873466045416}
-  - {fileID: 1896696686}
   - {fileID: 1725478354}
+  - {fileID: 1896696686}
