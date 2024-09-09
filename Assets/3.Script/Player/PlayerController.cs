@@ -9,11 +9,10 @@ namespace Character
     public class PlayerController : MonoBehaviour
     {
         private Vector3 moveDirection;
-        private float moveSpeed = 2f;
-        private float RunSpeed = 2f;
+        private float moveSpeed = 40f;
+        private float RunSpeed = 40f;
         private float rotationSpeed = 3f; // 회전 속도 변수
         private Actor actor;
-        public Collider PunchGrabTarget;
 
         private bool LeftisHolding = false;
         private float LeftholdTimer = 0f;
@@ -21,22 +20,19 @@ namespace Character
         private bool RightisHolding = false;
         private float RightholdTimer = 0f;
 
-        private CharacterController characterController; // 캐릭터 컨트롤러 변수
-        public float gravity = -9.81f; // 중력 값
-        private Vector3 velocity; // 중력 적용을 위한 속도 변수
-
         private Vector2 input;
 
         private void Awake()
         {
             TryGetComponent(out actor);
-            characterController = GetComponent<CharacterController>(); // 캐릭터 컨트롤러 초기화
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             if (moveDirection != Vector3.zero)
             {
+                if (actor.actorState == Actor.ActorState.Unconscious || actor.actorState == Actor.ActorState.Dead) return;
+
                 // 카메라의 회전 방향을 실시간으로 가져와 이동 방향에 반영
                 Vector3 forward = Camera.main.transform.forward;
                 Vector3 right = Camera.main.transform.right;
@@ -50,24 +46,15 @@ namespace Character
 
                 // 이동 처리
                 Vector3 move = moveDirection * moveSpeed * Time.fixedDeltaTime;
-                characterController.Move(move);
+
+                // XZ 평면 이동 처리 (ForceMode.Force 사용)
+                actor.bodyType.Chest.PartRigidbody.AddForce(move, ForceMode.VelocityChange);
+                actor.bodyType.Hips.PartRigidbody.AddForce(move, ForceMode.VelocityChange);
+                actor.bodyType.Ball.PartRigidbody.AddForce(move, ForceMode.VelocityChange);
 
                 // 캐릭터 회전 처리
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
-
-                // 중력 처리
-                if (!characterController.isGrounded)
-                {
-                    velocity.y += gravity * Time.fixedDeltaTime;
-                }
-                else
-                {
-                    velocity.y = -2f;
-                }
-
-                // 중력 포함 이동
-                characterController.Move(velocity * Time.fixedDeltaTime);
 
                 // 이동 방향 업데이트
                 actor.movementHandeler.direction = moveDirection;
@@ -84,10 +71,16 @@ namespace Character
                 {
                     actor.movementHandeler.ArmReadying(MovementHandeler.Side.Left);
                 }
+
                 if (LeftholdTimer < 0.2f)
                 {
-                    actor.movementHandeler.ArmPunching(MovementHandeler.Side.Left, PunchGrabTarget);
+                    actor.movementHandeler.ArmPunching(MovementHandeler.Side.Left);
                 }
+                else
+                {
+                    actor.movementHandeler.ArmHolding(MovementHandeler.Side.Left);
+                }
+
             }
 
             if (RightisHolding)
@@ -103,7 +96,11 @@ namespace Character
                 }
                 if (RightholdTimer < 0.2f)
                 {
-                    actor.movementHandeler.ArmPunching(MovementHandeler.Side.Right, PunchGrabTarget);
+                    actor.movementHandeler.ArmPunching(MovementHandeler.Side.Right);
+                }
+                else
+                {
+                    actor.movementHandeler.ArmHolding(MovementHandeler.Side.Right);
                 }
             }
 
@@ -126,7 +123,6 @@ namespace Character
                 // 카메라 방향을 기준으로 이동 방향 설정
                 moveDirection = (forward * input.y + right * input.x).normalized;
 
-                // 캐릭터 상태를 Run으로 전환
                 actor.actorState = Actor.ActorState.Run;
             }
             else
@@ -152,17 +148,14 @@ namespace Character
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (context.phase == InputActionPhase.Canceled)
+            if (context.phase == InputActionPhase.Started)
             {
-
-                actor.actorState = Actor.ActorState.Jump;
-
-                Debug.Log("쩜프");
-
                 if (actor.isGround)
                 {
+                    actor.JumpCheck = actor.actorState;
                     actor.actorState = Actor.ActorState.Jump;
-                    // Jump를 추가하고 싶다면 여기에 캐릭터 컨트롤러를 사용하여 구현
+                    actor.flytime = 0.7f;
+                    actor.isGround = false;
                 }
             }
         }

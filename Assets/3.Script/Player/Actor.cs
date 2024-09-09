@@ -23,6 +23,8 @@ namespace Character
 
         public ActorState lastActorState;
 
+        public ActorState JumpCheck;
+
         public MovementHandeler movementHandeler;
 
         public PlayerController player;
@@ -31,7 +33,9 @@ namespace Character
 
         public float applyedForce = 1f;
 
-        public bool isGround = true;
+        public float flytime;
+
+        public bool isGround;
 
         public float inputSpamForceModifier = 1f;
 
@@ -41,6 +45,9 @@ namespace Character
             bodyType = GetComponent<BodyType>();
             player = GetComponent<PlayerController>();
 
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             movementHandeler = new MovementHandeler_humanoid();
             movementHandeler.actor = this;
             movementHandeler.direction = bodyType.Chest.PartTransform.forward;
@@ -49,29 +56,23 @@ namespace Character
 
         private void FixedUpdate()
         {
-            //IsGroundedCustom();
             UpdateState();
+
+            IsGroundedCheck();
         }
 
-        public void IsGroundedCustom() // 점프후에 바닥에 닿는다면 서있는 상태로 바꾸기 위함
+        public void IsGroundedCheck() // 캐릭터가 바닥에있는지 체크
         {
-            if(actorState != ActorState.Jump) return; 
+            if (isGround) return;
 
-            RaycastHit hit;
-            float rayDistance = 0.1f;
-            if (Physics.Raycast(bodyType.LeftFoot.PartTransform.position, Vector3.down, out hit, rayDistance))
+            flytime -= Time.deltaTime;
+
+            if (flytime < 0)
             {
-                if(hit.transform.CompareTag("Ground"))
-                {
-                    actorState = ActorState.Stand;
-                    isGround = true;
-                }
+                actorState = JumpCheck;
+                isGround = true;
             }
-        }
 
-        public void ts()
-        {
-            actorState = ActorState.Stand;
         }
 
         private void UpdateState()
