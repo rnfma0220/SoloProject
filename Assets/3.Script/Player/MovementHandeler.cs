@@ -12,13 +12,6 @@ namespace Character
 			Right = 1
 		}
 
-		public enum Pose
-		{
-			Forward = 0,
-			Stand = 1,
-			Behind = 2
-		}
-
 		public Transform localTransform;
 
         public Actor actor;
@@ -43,7 +36,9 @@ namespace Character
 
 		public virtual void ArmReadying(Side side) { }
 
-		public virtual void ArmPunching(Side side, Collider punchTarget) { }
+		public virtual void ArmPunching(Side side) { }
+
+		public virtual void ArmHolding(Side side) { }
 
 		public void AlignToVector(Rigidbody part, Vector3 alignmentVector, Vector3 targetVector, float stability, float speed)
 		{
