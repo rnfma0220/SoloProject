@@ -26,6 +26,8 @@ namespace Character
 		MeshBody = 21,
 		Agent = 22,
 		CameraTarget = 23,
-		Root = 24
+		LeftGrip = 24,
+		RightGrip = 25,
+		Root = 26
 	}
 }

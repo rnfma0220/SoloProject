@@ -20,7 +20,12 @@ namespace Character
         private bool RightisHolding = false;
         private float RightholdTimer = 0f;
 
+        private float JumpTime = 0;
+        private bool IsJump = false;
+
         private Vector2 input;
+
+        private bool IsHandIUp = false;
 
         private void Awake()
         {
@@ -104,6 +109,16 @@ namespace Character
                 }
             }
 
+            if(IsHandIUp)
+            {
+                actor.movementHandeler.HandUp();
+            }
+
+            if(IsJump)
+            {
+                JumpTime += Time.deltaTime;
+            }
+
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -112,50 +127,62 @@ namespace Character
 
             if (input != Vector2.zero)
             {
-                // 카메라의 forward와 right를 실시간으로 반영하여 이동 방향 계산
                 Vector3 forward = Camera.main.transform.forward;
                 Vector3 right = Camera.main.transform.right;
 
-                // 카메라가 바라보는 방향에 따라 2D 평면 상에서의 이동 방향 계산
-                forward.y = 0f;  // Y축 제거, 평면 이동만 고려
+                forward.y = 0f;
                 right.y = 0f;
 
-                // 카메라 방향을 기준으로 이동 방향 설정
                 moveDirection = (forward * input.y + right * input.x).normalized;
 
                 actor.actorState = Actor.ActorState.Run;
             }
             else
             {
-                // 입력이 없을 때는 이동 멈춤
                 moveDirection = Vector3.zero;
                 actor.actorState = Actor.ActorState.Stand;
             }
         }
 
-        public void OnRun(InputAction.CallbackContext context)
+        public void OnHandUp(InputAction.CallbackContext context)
         {
+            if (context.phase == InputActionPhase.Started)
+            {
+                IsHandIUp = true;
+            }
+
+            if (context.phase == InputActionPhase.Canceled)
+            {
+                IsHandIUp = false;
+            }
+        }
+
+        public void OnJumpRun(InputAction.CallbackContext context)
+        {
+
+            if (context.phase == InputActionPhase.Started)
+            {
+                JumpTime = 0f;
+            }
+
             if (context.phase == InputActionPhase.Performed)
             {
-                moveSpeed = RunSpeed * 2f;
+                IsJump = true;
+                moveSpeed = RunSpeed * 1.5f;
             }
 
             if (context.phase == InputActionPhase.Canceled)
             {
                 moveSpeed = RunSpeed;
-            }
-        }
-
-        public void OnJump(InputAction.CallbackContext context)
-        {
-            if (context.phase == InputActionPhase.Started)
-            {
-                if (actor.isGround)
+                IsJump = false;
+                if(JumpTime < 1.0f)
                 {
-                    actor.JumpCheck = actor.actorState;
-                    actor.actorState = Actor.ActorState.Jump;
-                    actor.flytime = 0.7f;
-                    actor.isGround = false;
+                    if (actor.isGround)
+                    {
+                        actor.JumpCheck = actor.actorState;
+                        actor.actorState = Actor.ActorState.Jump;
+                        actor.isGround = false;
+                    }
                 }
             }
         }

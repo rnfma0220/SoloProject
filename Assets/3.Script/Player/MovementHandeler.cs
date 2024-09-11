@@ -34,6 +34,8 @@ namespace Character
 
 		public virtual void Jump() { }
 
+		public virtual void HandUp() { }
+
 		public virtual void ArmReadying(Side side) { }
 
 		public virtual void ArmPunching(Side side) { }

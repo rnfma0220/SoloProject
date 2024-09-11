@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Character;
 
 public class CameraController : MonoBehaviour
 {
@@ -14,8 +15,11 @@ public class CameraController : MonoBehaviour
     private float currentYaw = 0f;
     private float currentPitch = 0f;
 
+    private Actor actor;
+
     private void Start()
     {
+
         currentYaw = -2f;
         currentPitch = 30f;
     }

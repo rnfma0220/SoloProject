@@ -6,7 +6,6 @@ namespace Character
 {
     public class Actor : MonoBehaviour
     {
-
         [HideInInspector]
         public BodyType bodyType;
 
@@ -23,20 +22,23 @@ namespace Character
 
         public ActorState lastActorState;
 
+        [HideInInspector]
         public ActorState JumpCheck;
 
         public MovementHandeler movementHandeler;
 
+        [HideInInspector]
         public PlayerController player;
 
         public bool showForces = true; // 디버그 레이용
 
+        [HideInInspector]
         public float applyedForce = 1f;
 
-        public float flytime;
+        [HideInInspector]
+        public bool isGround = true;
 
-        public bool isGround;
-
+        [HideInInspector]
         public float inputSpamForceModifier = 1f;
 
 
@@ -57,22 +59,15 @@ namespace Character
         private void FixedUpdate()
         {
             UpdateState();
-
-            IsGroundedCheck();
         }
 
         public void IsGroundedCheck() // 캐릭터가 바닥에있는지 체크
         {
-            if (isGround) return;
-
-            flytime -= Time.deltaTime;
-
-            if (flytime < 0)
+            isGround = true;
+            if(actorState != ActorState.Stand)
             {
                 actorState = JumpCheck;
-                isGround = true;
             }
-
         }
 
         private void UpdateState()
