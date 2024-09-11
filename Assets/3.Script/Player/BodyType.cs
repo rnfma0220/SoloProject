@@ -35,8 +35,6 @@ public class BodyType : MonoBehaviour
 	public BodySet LeftGrip;
 	public BodySet RightGrip;
 	public BodySet Root;
-    public GameObject Test1;
-    public GameObject Test2;
 
     private void OnEnable()
     {
@@ -209,23 +207,7 @@ public class BodyType : MonoBehaviour
         Physics.IgnoreCollision(RightThigh.PartCollider, Crotch.PartCollider);
         Physics.IgnoreCollision(RightThigh.PartCollider, RightLeg.PartCollider);
     }
-
-    public void OnLeftbodyCollider(Collision target)
-    {
-        Test1 = target.gameObject;
-    }
-
-    public void OnRightbodyCollider(Collision target)
-    {
-        Test2 = target.gameObject;
-    }
-
-    public void ExitBodyCollider()
-    {
-        Test1 = null;
-        Test2 = null;
-    }
-
+    
     public static Transform FindTransformViaName(Transform trans, string transformName)
     {
         if (trans.name == transformName)
