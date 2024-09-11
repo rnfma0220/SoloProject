@@ -15,22 +15,22 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Run",
+                    "name": "HandUp",
                     "type": "Button",
-                    "id": "80f0c73a-c152-41ce-ae82-0559d382dca8",
+                    "id": "169390c4-28bb-4e78-a1f5-c6750cf531d9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "JumpRun",
                     "type": "Button",
                     "id": "067a5365-c435-4ae0-978c-3a55d9fb9ace",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "interactions": "Hold",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LeftHand",
@@ -114,7 +114,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "keyboard&Mouse",
-                    "action": "Jump",
+                    "action": "JumpRun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -142,12 +142,12 @@
                 },
                 {
                     "name": "",
-                    "id": "471efa31-ca73-47e7-a5dc-dcb3d6950c83",
+                    "id": "accdc83c-8c59-4fa4-95d7-274067ad5435",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Run",
+                    "action": "HandUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -32,75 +32,15 @@ public class BodyType : MonoBehaviour
 	public BodySet MeshBody;
 	public BodySet Agent;
 	public BodySet CameraTarget;
+	public BodySet LeftGrip;
+	public BodySet RightGrip;
 	public BodySet Root;
+    public GameObject Test1;
+    public GameObject Test2;
 
     private void OnEnable()
     {
         SetUp();
-    }
-
-    public static BodyEnum BodyTypeName(string name)
-    {
-        return name.ToLower() switch
-        {
-            "head" => BodyEnum.Head,
-            "chest" => BodyEnum.Chest,
-            "waist" => BodyEnum.Waist,
-            "stomach" => BodyEnum.Stomach,
-            "hips" => BodyEnum.Hips,
-            "crotch" => BodyEnum.Crotch,
-            "leftarm" => BodyEnum.LeftArm,
-            "leftforarm" => BodyEnum.LeftForarm,
-            "lefthand" => BodyEnum.LeftHand,
-            "leftthigh" => BodyEnum.LeftThigh,
-            "leftleg" => BodyEnum.LeftLeg,
-            "leftfoot" => BodyEnum.LeftFoot,
-            "rightarm" => BodyEnum.RightArm,
-            "rightforarm" => BodyEnum.RightForarm,
-            "righthand" => BodyEnum.RightHand,
-            "rightthigh" => BodyEnum.RightThigh,
-            "rightleg" => BodyEnum.RightLeg,
-            "rightfoot" => BodyEnum.RightFoot,
-            "ball" => BodyEnum.Ball,
-            "spring" => BodyEnum.Spring,
-            "meshhead" => BodyEnum.MeshHead,
-            "meshbody" => BodyEnum.MeshBody,
-            "agent" => BodyEnum.Agent,
-            "cameratarget" => BodyEnum.CameraTarget,
-            _ => BodyEnum.Root,
-        };
-    }
-
-	public BodySet EnumToBodyPart(BodyEnum num)
-	{
-        return num switch
-        {
-            BodyEnum.Head => Head,
-            BodyEnum.Chest => Chest,
-            BodyEnum.Waist => Waist,
-            BodyEnum.Stomach => Stomach,
-            BodyEnum.Hips => Hips,
-            BodyEnum.Crotch => Crotch,
-            BodyEnum.LeftArm => LeftArm,
-            BodyEnum.LeftForarm => LeftForarm,
-            BodyEnum.LeftHand => LeftHand,
-            BodyEnum.LeftThigh => LeftThigh,
-            BodyEnum.LeftLeg => LeftLeg,
-            BodyEnum.LeftFoot => LeftFoot,
-            BodyEnum.RightArm => RightArm,
-            BodyEnum.RightForarm => RightForarm,
-            BodyEnum.RightHand => RightHand,
-            BodyEnum.RightThigh => RightThigh,
-            BodyEnum.RightLeg => RightLeg,
-            BodyEnum.RightFoot => RightFoot,
-            BodyEnum.Ball => Ball,
-            BodyEnum.Spring => Spring,
-            BodyEnum.MeshHead => MeshHead,
-            BodyEnum.MeshBody => MeshBody,
-            BodyEnum.Agent => Agent,
-            BodyEnum.CameraTarget => CameraTarget,
-            _ => Root,
-        };
     }
 
     public void SetUp()
@@ -109,6 +49,7 @@ public class BodyType : MonoBehaviour
         SetupRenderers();
         SetupRigidbodys();
         SetupColliders();
+        SetupColliderCheck();
     }
 
     private void SetupParts()
@@ -216,6 +157,24 @@ public class BodyType : MonoBehaviour
         return new Color32(r, g, b, 255);
     }
 
+    private void SetupColliderCheck()
+    {     
+        AddColliderCheck(LeftHand.PartCollider);
+        AddColliderCheck(LeftLeg.PartCollider);
+        AddColliderCheck(LeftFoot.PartCollider);
+        AddColliderCheck(RightHand.PartCollider);
+        AddColliderCheck(RightLeg.PartCollider);
+        AddColliderCheck(RightFoot.PartCollider);
+    }
+
+    private void AddColliderCheck(Collider partCollider)
+    {
+        if (partCollider != null)
+        {
+            partCollider.gameObject.AddComponent<BodyColliderCheck>();
+        }
+    }
+
     private void SetupColliders()
     {
         Physics.IgnoreCollision(Chest.PartCollider, Head.PartCollider);
@@ -249,6 +208,22 @@ public class BodyType : MonoBehaviour
         Physics.IgnoreCollision(RightThigh.PartCollider, Stomach.PartCollider);
         Physics.IgnoreCollision(RightThigh.PartCollider, Crotch.PartCollider);
         Physics.IgnoreCollision(RightThigh.PartCollider, RightLeg.PartCollider);
+    }
+
+    public void OnLeftbodyCollider(Collision target)
+    {
+        Test1 = target.gameObject;
+    }
+
+    public void OnRightbodyCollider(Collision target)
+    {
+        Test2 = target.gameObject;
+    }
+
+    public void ExitBodyCollider()
+    {
+        Test1 = null;
+        Test2 = null;
     }
 
     public static Transform FindTransformViaName(Transform trans, string transformName)
