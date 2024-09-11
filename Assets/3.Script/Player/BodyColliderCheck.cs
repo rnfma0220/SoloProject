@@ -41,16 +41,14 @@ namespace Character
             }
             else
             {
-                Vector3 relativeVelocity = collision.relativeVelocity;
-
-                // 충돌의 상대 속도를 기반으로 충돌 힘을 계산 (크기만 사용)
-                float collisionForce = relativeVelocity.magnitude;
-
-                Debug.Log("Collision Force: " + collisionForce);
+                if(gameObject.name == "actor_leftHand_collider")
+                {
+                    actor.movementHandeler.OnLeftbodyCollider(collision);
+                }
 
                 if (gameObject.name == "actor_rightHand_collider")
                 {
-                    actor.bodyType.OnRightbodyCollider(collision);
+                    actor.movementHandeler.OnRightbodyCollider(collision);
                 }
             }
         }
