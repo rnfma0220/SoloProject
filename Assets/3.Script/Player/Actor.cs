@@ -22,8 +22,15 @@ namespace Character
 
         public ActorState lastActorState;
 
+        public float PlayerHP = 100f;
+
+        public int PlayerDownCount = 0;
+
         [HideInInspector]
         public ActorState JumpCheck;
+
+        public bool LeftAttack = false;
+        public bool RightAttack = false;
 
         public MovementHandeler movementHandeler;
 

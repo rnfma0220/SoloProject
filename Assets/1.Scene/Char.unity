@@ -183,8 +183,6 @@ MonoBehaviour:
   headMaterial: {fileID: 0}
   bodyMaterial: {fileID: 0}
   HexColor: FFA500
-  Test1: {fileID: 0}
-  Test2: {fileID: 0}
 --- !u!114 &16190595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +198,8 @@ MonoBehaviour:
   bodyType: {fileID: 0}
   actorState: 2
   lastActorState: 2
+  PlayerHP: 100
+  PlayerDownCount: 0
   JumpCheck: 0
   player: {fileID: 0}
   showForces: 1
@@ -4543,6 +4543,7 @@ GameObject:
   - component: {fileID: 1223388953}
   - component: {fileID: 1223388952}
   - component: {fileID: 1223388951}
+  - component: {fileID: 1223388955}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Ground
@@ -4637,6 +4638,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1223388955
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223388950}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1247145731
 GameObject:
   m_ObjectHideFlags: 0
@@ -7177,6 +7205,8 @@ MonoBehaviour:
   bodyType: {fileID: 0}
   actorState: 2
   lastActorState: 2
+  PlayerHP: 100
+  PlayerDownCount: 0
   JumpCheck: 0
   player: {fileID: 0}
   showForces: 1
@@ -7627,6 +7657,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 169390c4-28bb-4e78-a1f5-c6750cf531d9
     m_ActionName: PlayerAction/HandUp[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7031667096621364709}
+        m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
+        m_MethodName: OnSit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2a683035-ce91-4305-b5c3-6a80f58c12f2
+    m_ActionName: PlayerAction/Sit[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerAction
@@ -10754,8 +10800,6 @@ MonoBehaviour:
   headMaterial: {fileID: 0}
   bodyMaterial: {fileID: 0}
   HexColor: FF0000
-  Test1: {fileID: 0}
-  Test2: {fileID: 0}
 --- !u!1 &6812323736785433479
 GameObject:
   m_ObjectHideFlags: 0

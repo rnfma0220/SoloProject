@@ -9,8 +9,8 @@ namespace Character
     public class PlayerController : MonoBehaviour
     {
         private Vector3 moveDirection;
-        private float moveSpeed = 40f;
-        private float RunSpeed = 40f;
+        private float moveSpeed = 30f;
+        private float RunSpeed = 30f;
         private float rotationSpeed = 3f; // 회전 속도 변수
         private Actor actor;
 
@@ -67,45 +67,59 @@ namespace Character
 
             if (LeftisHolding)
             {
-                if (actor.actorState == Actor.ActorState.Unconscious) return;
-                if (actor.actorState == Actor.ActorState.Dead) return;
-
                 LeftholdTimer += Time.deltaTime;
 
                 if (LeftholdTimer < 0.1f)
                 {
+                    actor.LeftAttack = false;
                     actor.movementHandeler.ArmReadying(MovementHandeler.Side.Left);
                 }
 
                 if (LeftholdTimer < 0.2f)
                 {
+                    actor.LeftAttack = true;
                     actor.movementHandeler.ArmPunching(MovementHandeler.Side.Left);
                 }
                 else
                 {
-                    actor.movementHandeler.ArmHolding(MovementHandeler.Side.Left);
+                    actor.LeftAttack = false;
+                    if (actor.movementHandeler.LeftHandObject == null)
+                    {
+                        actor.movementHandeler.ArmHolding(MovementHandeler.Side.Left);
+                    }
+                    else
+                    {
+                        actor.movementHandeler.ArmHolding(MovementHandeler.Side.Left, actor.movementHandeler.LeftHandObject);
+                    }
                 }
 
             }
 
             if (RightisHolding)
             {
-                if (actor.actorState == Actor.ActorState.Unconscious) return;
-                if (actor.actorState == Actor.ActorState.Dead) return;
-
                 RightholdTimer += Time.deltaTime;
 
                 if (RightholdTimer < 0.1f)
                 {
+                    actor.RightAttack = false;
                     actor.movementHandeler.ArmReadying(MovementHandeler.Side.Right);
                 }
                 if (RightholdTimer < 0.2f)
                 {
+                    actor.RightAttack = true;
                     actor.movementHandeler.ArmPunching(MovementHandeler.Side.Right);
                 }
                 else
                 {
-                    actor.movementHandeler.ArmHolding(MovementHandeler.Side.Right);
+                    actor.RightAttack = false;
+                    if (actor.movementHandeler.RightHandObject == null)
+                    {
+                        actor.movementHandeler.ArmHolding(MovementHandeler.Side.Right);
+                    }
+                    else
+                    {
+                        actor.movementHandeler.ArmHolding(MovementHandeler.Side.Right, actor.movementHandeler.RightHandObject);
+                    }
                 }
             }
 
@@ -159,15 +173,14 @@ namespace Character
 
         public void OnJumpRun(InputAction.CallbackContext context)
         {
-
             if (context.phase == InputActionPhase.Started)
             {
+                IsJump = true;
                 JumpTime = 0f;
             }
 
             if (context.phase == InputActionPhase.Performed)
             {
-                IsJump = true;
                 moveSpeed = RunSpeed * 1.5f;
             }
 
@@ -175,7 +188,7 @@ namespace Character
             {
                 moveSpeed = RunSpeed;
                 IsJump = false;
-                if(JumpTime < 1.0f)
+                if (JumpTime < 1.0f)
                 {
                     if (actor.isGround)
                     {
@@ -189,6 +202,9 @@ namespace Character
 
         public void OnLeftHand(InputAction.CallbackContext context)
         {
+            if (actor.actorState == Actor.ActorState.Unconscious) return;
+            if (actor.actorState == Actor.ActorState.Dead) return;
+
             if (context.phase == InputActionPhase.Started)
             {
                 LeftisHolding = true;
@@ -199,11 +215,20 @@ namespace Character
             {
                 LeftisHolding = false;
                 LeftholdTimer = 0f;
+
+                FixedJoint joint = actor.bodyType.LeftHand.PartTransform.GetComponent<FixedJoint>();
+
+                if (joint != null)
+                {
+                    Destroy(joint);
+                }
             }
         }
 
         public void OnRightHand(InputAction.CallbackContext context)
         {
+            if (actor.actorState == Actor.ActorState.Unconscious) return;
+            if (actor.actorState == Actor.ActorState.Dead) return;
 
             if (context.phase == InputActionPhase.Started)
             {
@@ -215,6 +240,25 @@ namespace Character
             {
                 RightisHolding = false;
                 RightholdTimer = 0f;
+
+                FixedJoint joint = actor.bodyType.RightHand.PartTransform.GetComponent<FixedJoint>();
+
+                if (joint != null)
+                {
+                    Destroy(joint);
+                }
+            }
+        }
+
+        public void OnSit(InputAction.CallbackContext context)
+        {
+            if(actor.movementHandeler.Sit)
+            {
+                actor.movementHandeler.Sit = false;
+            }
+            else
+            {
+                actor.movementHandeler.Sit = true;
             }
         }
     }
