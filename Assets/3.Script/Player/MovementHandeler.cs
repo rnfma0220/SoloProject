@@ -20,30 +20,14 @@ namespace Character
 		public Vector3 rawDirection;
 		public Vector3 lookDirection;
 
-		public GameObject Test1;
-		public GameObject Test2;
-
-		public void OnLeftbodyCollider(Collision target)
-		{
-			Test1 = target.gameObject;
-			Debug.Log(target.gameObject.name + "충돌1");
-		}
-
-		public void OnRightbodyCollider(Collision target)
-		{
-			Test2 = target.gameObject;
-			Debug.Log(target.gameObject.name + "충돌2");
-		}
-
-		public void ExitBodyCollider()
-		{
-			Test1 = null;
-			Test2 = null;
-		}
+		public GameObject LeftHandObject;
+		public GameObject RightHandObject;
 
 		public float armCheeringForce = 10f;
 
         public bool stateChange = true;
+
+		public bool Sit = false;
 
 		public virtual void Dead() { }
 
@@ -62,6 +46,8 @@ namespace Character
 		public virtual void ArmPunching(Side side) { }
 
 		public virtual void ArmHolding(Side side) { }
+
+		public virtual void ArmHolding(Side side, GameObject target) { }
 
 		public void AlignToVector(Rigidbody part, Vector3 alignmentVector, Vector3 targetVector, float stability, float speed)
 		{
