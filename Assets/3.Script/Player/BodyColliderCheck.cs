@@ -20,55 +20,84 @@ namespace Character
             {
                 return;
             }
-            else
+
+            if (collision.gameObject.CompareTag("Ground")) // 바닥 체크용도
             {
-                if (collision.gameObject.CompareTag("Ground")) // 바닥 체크용도
+                if (gameObject.name == "actor_leftThigh_collider" || gameObject.name == "actor_leftLeg_collider" || gameObject.name == "actor_rightThigh_collider" || gameObject.name == "actor_rightLeg_collider")
                 {
-                    if (gameObject.name == "actor_leftThigh_collider" || gameObject.name == "actor_leftLeg_collider" || gameObject.name == "actor_rightThigh_collider" || gameObject.name == "actor_rightLeg_collider")
+                    if (!actor.isGround)
                     {
-                        if (!actor.isGround)
+                        actor.isGround = true;
+                        if (actor.actorState != Actor.ActorState.Stand)
                         {
-                            actor.IsGroundedCheck();
-                        }
-                        else
-                        {
-                            return;
+                            actor.actorState = actor.JumpCheck;
                         }
                     }
-                }
-
-                if (gameObject.name == "actor_leftHand_collider") // 오브젝트를 잡기위한 부분
-                {
-                    actor.movementHandeler.LeftHandObject = collision.gameObject;
-
-                    if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.LeftAttack)
+                    else
                     {
-                        float impactForce = collision.relativeVelocity.magnitude;
-
-                        float damage = impactForce * 10f;
-
-                        if (collision.gameObject.name == "actor_head_collider")
-                        {
-                            Debug.Log("충돌로 인한 힘: " + damage);
-                        }
-                        else
-                        {
-                            Debug.Log("나머지부위");
-                            Debug.Log("충돌로 인한 힘: " + impactForce);
-                        }
+                        return;
                     }
                 }
+            }
 
-                if (gameObject.name == "actor_rightHand_collider")
+            if (gameObject.name == "actor_leftHand_collider")
+            {
+                actor.movementHandeler.LeftHandObject = collision.gameObject;
+
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.LeftAttack &&
+                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Unconscious &&
+                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Dead)
                 {
-                    actor.movementHandeler.RightHandObject = collision.gameObject;
+                    float impactForce = collision.relativeVelocity.magnitude;
 
-                    if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.RightAttack)
+                    float Headdamage = impactForce * 3f;
+
+                    GameObject test = collision.gameObject.transform.root.gameObject;
+
+                    if (collision.gameObject.name == "actor_head_collider")
                     {
-                        Debug.Log("오른손 펀치");
+                        Debug.Log("뚝배기 공격 : " + Headdamage);
+                        test.GetComponent<Actor>().PlayerHP -= Headdamage;
+                        actor.LeftAttack = false;
+                    }
+                    else
+                    {
+                        Debug.Log("나머지부위");
+                        Debug.Log("충돌로 인한 힘: " + impactForce);
+                        test.GetComponent<Actor>().PlayerHP -= impactForce;
+                        actor.LeftAttack = false;
                     }
                 }
-                
+            }
+
+            if (gameObject.name == "actor_rightHand_collider")
+            {
+                actor.movementHandeler.RightHandObject = collision.gameObject;
+
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.RightAttack &&
+                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Unconscious &&
+                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Dead)
+                {
+                    float impactForce = collision.relativeVelocity.magnitude;
+
+                    float Headdamage = impactForce * 3f;
+
+                    GameObject test = collision.gameObject.transform.root.gameObject;
+
+                    if (collision.gameObject.name == "actor_head_collider")
+                    {
+                        Debug.Log("뚝배기 공격 : " + Headdamage);
+                        test.GetComponent<Actor>().PlayerHP -= Headdamage;
+                        actor.RightAttack = false;
+                    }
+                    else
+                    {
+                        Debug.Log("나머지부위");
+                        Debug.Log("충돌로 인한 힘: " + impactForce);
+                        test.GetComponent<Actor>().PlayerHP -= impactForce;
+                        actor.RightAttack = false;
+                    }
+                }
             }
         }
 

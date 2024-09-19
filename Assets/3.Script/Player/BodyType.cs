@@ -32,9 +32,30 @@ public class BodyType : MonoBehaviour
 	public BodySet MeshBody;
 	public BodySet Agent;
 	public BodySet CameraTarget;
-	public BodySet LeftGrip;
-	public BodySet RightGrip;
 	public BodySet Root;
+
+    #region 기절시 메스갑 저장하기위한 값
+    public float HeadMass { get; private set; }
+    public float ChestMass { get; private set; }
+    public float WaistMass { get; private set; }
+    public float StomachMass { get; private set; }
+    public float HipsMass { get; private set; }
+    public float CrotchMass { get; private set; }
+    public float LeftArmMass { get; private set; }
+    public float LeftForarmMass { get; private set; }
+    public float LeftHandMass { get; private set; }
+    public float LeftThighMass { get; private set; }
+    public float LeftLegMass { get; private set; }
+    public float LeftFootMass { get; private set; }
+    public float RightArmMass { get; private set; }
+    public float RightForarmMass { get; private set; }
+    public float RightHandMass { get; private set; }
+    public float RightThighMass { get; private set; }
+    public float RightLegMass { get; private set; }
+    public float RightFootMass { get; private set; }
+    public float BallMass { get; private set; }
+    public float SpringMass { get; private set; }
+    #endregion
 
     private void OnEnable()
     {
@@ -83,25 +104,45 @@ public class BodyType : MonoBehaviour
     private  void SetupRigidbodys()
     {
         Ball.PartRigidbody = Ball.PartTransform.GetComponent<Rigidbody>();
+        BallMass = Ball.PartRigidbody.mass;
         Spring.PartRigidbody = Spring.PartTransform.GetComponent<Rigidbody>();
+        SpringMass = Spring.PartRigidbody.mass;
         Hips.PartRigidbody = Hips.PartTransform.GetComponent<Rigidbody>();
+        HipsMass = Hips.PartRigidbody.mass;
         Crotch.PartRigidbody = Crotch.PartTransform.GetComponent<Rigidbody>();
+        CrotchMass = Crotch.PartRigidbody.mass;
         Waist.PartRigidbody = Waist.PartTransform.GetComponent<Rigidbody>();
+        WaistMass = Waist.PartRigidbody.mass;
         Stomach.PartRigidbody = Stomach.PartTransform.GetComponent<Rigidbody>();
+        StomachMass = Stomach.PartRigidbody.mass;
         Chest.PartRigidbody = Chest.PartTransform.GetComponent<Rigidbody>();
+        ChestMass = Chest.PartRigidbody.mass;
         Head.PartRigidbody = Head.PartTransform.GetComponent<Rigidbody>();
+        HeadMass = Head.PartRigidbody.mass;
         LeftArm.PartRigidbody = LeftArm.PartTransform.GetComponent<Rigidbody>();
+        LeftArmMass = LeftArm.PartRigidbody.mass;
         LeftForarm.PartRigidbody = LeftForarm.PartTransform.GetComponent<Rigidbody>();
+        LeftForarmMass = LeftForarm.PartRigidbody.mass;
         LeftHand.PartRigidbody = LeftHand.PartTransform.GetComponent<Rigidbody>();
+        LeftHandMass = LeftHand.PartRigidbody.mass;
         LeftThigh.PartRigidbody = LeftThigh.PartTransform.GetComponent<Rigidbody>();
+        LeftThighMass = LeftThigh.PartRigidbody.mass;
         LeftLeg.PartRigidbody = LeftLeg.PartTransform.GetComponent<Rigidbody>();
+        LeftLegMass = LeftLeg.PartRigidbody.mass;
         LeftFoot.PartRigidbody = LeftFoot.PartTransform.GetComponent<Rigidbody>();
+        LeftFootMass = LeftFoot.PartRigidbody.mass;
         RightArm.PartRigidbody = RightArm.PartTransform.GetComponent<Rigidbody>();
+        RightArmMass = RightArm.PartRigidbody.mass;
         RightForarm.PartRigidbody = RightForarm.PartTransform.GetComponent<Rigidbody>();
+        RightForarmMass = RightForarm.PartRigidbody.mass;
         RightHand.PartRigidbody = RightHand.PartTransform.GetComponent<Rigidbody>();
+        RightHandMass = RightHand.PartRigidbody.mass;
         RightThigh.PartRigidbody = RightThigh.PartTransform.GetComponent<Rigidbody>();
+        RightThighMass = RightThigh.PartRigidbody.mass;
         RightLeg.PartRigidbody = RightLeg.PartTransform.GetComponent<Rigidbody>();
+        RightLegMass = RightLeg.PartRigidbody.mass;
         RightFoot.PartRigidbody = RightFoot.PartTransform.GetComponent<Rigidbody>();
+        RightFootMass = RightFoot.PartRigidbody.mass;
         RigidbodySettings(Ball.PartRigidbody);
         RigidbodySettings(Spring.PartRigidbody);
         RigidbodySettings(Hips.PartRigidbody);
@@ -144,7 +185,7 @@ public class BodyType : MonoBehaviour
         MeshBody.PartRenderer.material = bodyMaterial;
     }
 
-    Color HexToColor(string hex)
+    private Color HexToColor(string hex)
     {
         // 헥사 색상 코드를 RGB로 변환
         byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
