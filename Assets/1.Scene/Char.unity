@@ -201,6 +201,8 @@ MonoBehaviour:
   PlayerHP: 100
   PlayerDownCount: 0
   JumpCheck: 0
+  LeftAttack: 0
+  RightAttack: 0
   player: {fileID: 0}
   showForces: 1
   applyedForce: 1
@@ -7208,6 +7210,8 @@ MonoBehaviour:
   PlayerHP: 100
   PlayerDownCount: 0
   JumpCheck: 0
+  LeftAttack: 0
+  RightAttack: 0
   player: {fileID: 0}
   showForces: 1
   applyedForce: 1
@@ -7395,7 +7399,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.43455583, z: 0.03487647}
+  m_ConnectedAnchor: {x: 0, y: 0.435, z: 0.008}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -7673,6 +7677,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2a683035-ce91-4305-b5c3-6a80f58c12f2
     m_ActionName: PlayerAction/Sit[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7031667096621364709}
+        m_TargetAssemblyTypeName: Character.PlayerController, Assembly-CSharp
+        m_MethodName: OnJumpKick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 17dd3218-0167-441e-9b33-68f26d57c7ce
+    m_ActionName: PlayerAction/JumpKick[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerAction

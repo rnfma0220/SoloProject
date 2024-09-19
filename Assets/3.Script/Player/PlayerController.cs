@@ -9,8 +9,8 @@ namespace Character
     public class PlayerController : MonoBehaviour
     {
         private Vector3 moveDirection;
-        private float moveSpeed = 30f;
-        private float RunSpeed = 30f;
+        private float moveSpeed = 20f;
+        private float RunSpeed = 20f;
         private float rotationSpeed = 3f; // 회전 속도 변수
         private Actor actor;
 
@@ -71,14 +71,17 @@ namespace Character
 
                 if (LeftholdTimer < 0.1f)
                 {
-                    actor.LeftAttack = false;
                     actor.movementHandeler.ArmReadying(MovementHandeler.Side.Left);
                 }
 
                 if (LeftholdTimer < 0.2f)
                 {
-                    actor.LeftAttack = true;
                     actor.movementHandeler.ArmPunching(MovementHandeler.Side.Left);
+
+                    if (!actor.LeftAttack)
+                    {
+                        actor.LeftAttack = true;
+                    }
                 }
                 else
                 {
@@ -101,13 +104,16 @@ namespace Character
 
                 if (RightholdTimer < 0.1f)
                 {
-                    actor.RightAttack = false;
                     actor.movementHandeler.ArmReadying(MovementHandeler.Side.Right);
                 }
                 if (RightholdTimer < 0.2f)
                 {
-                    actor.RightAttack = true;
                     actor.movementHandeler.ArmPunching(MovementHandeler.Side.Right);
+
+                    if (!actor.RightAttack)
+                    {
+                        actor.RightAttack = true;
+                    }
                 }
                 else
                 {
@@ -135,8 +141,35 @@ namespace Character
 
         }
 
+        private IEnumerator Attack_Co(MovementHandeler.Side side)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if(side == MovementHandeler.Side.Left)
+            {
+                if (actor.LeftAttack)
+                {
+                    actor.LeftAttack = false;
+                }
+                Debug.Log("왼손 코루틴 작동");
+                yield break;
+            }
+            else
+            {
+                if (actor.RightAttack)
+                {
+                    actor.RightAttack = false;
+                    Debug.Log("오른손 코루틴 작동");
+                }
+                yield break;
+            }
+        }
+
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (actor.actorState == Actor.ActorState.Unconscious) return;
+            if (actor.actorState == Actor.ActorState.Dead) return;
+
             input = context.ReadValue<Vector2>();
 
             if (input != Vector2.zero)
@@ -160,6 +193,9 @@ namespace Character
 
         public void OnHandUp(InputAction.CallbackContext context)
         {
+            if (actor.actorState == Actor.ActorState.Unconscious) return;
+            if (actor.actorState == Actor.ActorState.Dead) return;
+
             if (context.phase == InputActionPhase.Started)
             {
                 IsHandIUp = true;
@@ -173,6 +209,9 @@ namespace Character
 
         public void OnJumpRun(InputAction.CallbackContext context)
         {
+            if (actor.actorState == Actor.ActorState.Unconscious) return;
+            if (actor.actorState == Actor.ActorState.Dead) return;
+
             if (context.phase == InputActionPhase.Started)
             {
                 IsJump = true;
@@ -222,6 +261,7 @@ namespace Character
                 {
                     Destroy(joint);
                 }
+
             }
         }
 
@@ -259,6 +299,14 @@ namespace Character
             else
             {
                 actor.movementHandeler.Sit = true;
+            }
+        }
+
+        public void OnJumpKick(InputAction.CallbackContext context)
+        {
+            if(actor.actorState == Actor.ActorState.Jump)
+            {
+                Debug.Log("점프킥 실행");
             }
         }
     }

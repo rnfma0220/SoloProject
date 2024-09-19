@@ -14,6 +14,8 @@ namespace Character
 
         public float cycleSpeed = 0.23f;
 
+        private float DownTimer = 10f;
+
         private bool Walk = false;
         private float WalkTime;
 
@@ -90,13 +92,15 @@ namespace Character
             {
                 if (WalkTime <= 0f) 
                 {
-                    actor.bodyType.RightLeg.PartRigidbody.AddForce(direction * 4f, ForceMode.VelocityChange);
-                    actor.bodyType.RightFoot.PartRigidbody.AddForce(direction * 18f, ForceMode.VelocityChange);
+                    actor.bodyType.RightThigh.PartRigidbody.AddForce(direction * 5f, ForceMode.VelocityChange);
+                    actor.bodyType.RightLeg.PartRigidbody.AddForce(direction * 10f, ForceMode.VelocityChange);
+                    actor.bodyType.RightFoot.PartRigidbody.AddForce(direction * 20f, ForceMode.VelocityChange);
 
-                    actor.bodyType.LeftLeg.PartRigidbody.AddForce(-direction * 4f, ForceMode.VelocityChange);
-                    actor.bodyType.LeftFoot.PartRigidbody.AddForce(-direction * 18f, ForceMode.VelocityChange);
+                    actor.bodyType.LeftThigh.PartRigidbody.AddForce(-direction * 1f, ForceMode.VelocityChange);
+                    actor.bodyType.LeftLeg.PartRigidbody.AddForce(-direction * 1f, ForceMode.VelocityChange);
+                    actor.bodyType.LeftFoot.PartRigidbody.AddForce(-direction * 3f, ForceMode.VelocityChange);
 
-                    WalkTime = 0.3f;
+                    WalkTime = 0.35f;
                     Walk = true;
                 }
             }
@@ -104,13 +108,15 @@ namespace Character
             {
                 if (WalkTime <= 0f)
                 {
-                    actor.bodyType.RightLeg.PartRigidbody.AddForce(-direction * 4f, ForceMode.VelocityChange);
-                    actor.bodyType.RightFoot.PartRigidbody.AddForce(-direction * 18f, ForceMode.VelocityChange);
+                    actor.bodyType.LeftThigh.PartRigidbody.AddForce(direction * 5f, ForceMode.VelocityChange);
+                    actor.bodyType.LeftLeg.PartRigidbody.AddForce(direction * 10f, ForceMode.VelocityChange);
+                    actor.bodyType.LeftFoot.PartRigidbody.AddForce(direction * 20f, ForceMode.VelocityChange);
 
-                    actor.bodyType.LeftLeg.PartRigidbody.AddForce(direction * 4f, ForceMode.VelocityChange);
-                    actor.bodyType.LeftFoot.PartRigidbody.AddForce(direction * 18f, ForceMode.VelocityChange);
-                    
-                    WalkTime = 0.3f;
+                    actor.bodyType.RightThigh.PartRigidbody.AddForce(-direction * 1f, ForceMode.VelocityChange);
+                    actor.bodyType.RightLeg.PartRigidbody.AddForce(-direction * 1f, ForceMode.VelocityChange);
+                    actor.bodyType.RightFoot.PartRigidbody.AddForce(-direction * 3f, ForceMode.VelocityChange);
+
+                    WalkTime = 0.35f;
                     Walk = false;
                 }
             }
@@ -126,31 +132,61 @@ namespace Character
             AlignToVector(actor.bodyType.Waist.PartRigidbody, actor.bodyType.Waist.PartTransform.up, Vector3.up, 0.1f, 4f * actor.applyedForce);
             AlignToVector(actor.bodyType.Hips.PartRigidbody, actor.bodyType.Hips.PartTransform.up, Vector3.up, 0.1f, 3f * actor.applyedForce);
 
+            AlignToVector(actor.bodyType.LeftThigh.PartRigidbody, actor.bodyType.LeftThigh.PartTransform.up, Vector3.up, 0.1f, 3f * actor.applyedForce);
+            AlignToVector(actor.bodyType.LeftLeg.PartRigidbody, actor.bodyType.LeftLeg.PartTransform.up, Vector3.up, 0.1f, 3f * actor.applyedForce);
+
+            AlignToVector(actor.bodyType.RightThigh.PartRigidbody, actor.bodyType.RightThigh.PartTransform.up, Vector3.up, 0.1f, 3f * actor.applyedForce);
+            AlignToVector(actor.bodyType.RightLeg.PartRigidbody, actor.bodyType.RightLeg.PartTransform.up, Vector3.up, 0.1f, 3f * actor.applyedForce);
+
             if (stateChange)
             {
-                if (actor.JumpCheck == Actor.ActorState.Run)
-                {
-                    actor.bodyType.Chest.PartRigidbody.AddForce(Vector3.up * 50f, ForceMode.VelocityChange);
-                    actor.bodyType.Hips.PartRigidbody.AddForce(Vector3.up * 30f, ForceMode.VelocityChange);
-                    actor.bodyType.Waist.PartRigidbody.AddForce(Vector3.up * 30f, ForceMode.VelocityChange);
-                }
-                else
-                {
-                    actor.bodyType.Chest.PartRigidbody.AddForce(Vector3.up * 40f, ForceMode.VelocityChange);
-                    actor.bodyType.Hips.PartRigidbody.AddForce(Vector3.up * 40f, ForceMode.VelocityChange);
-                    actor.bodyType.Waist.PartRigidbody.AddForce(Vector3.up * 35f, ForceMode.VelocityChange);
-                }
+                actor.bodyType.Chest.PartRigidbody.AddForce(Vector3.up * 50f, ForceMode.VelocityChange);
+                actor.bodyType.Waist.PartRigidbody.AddForce(Vector3.up * 40f, ForceMode.VelocityChange);
+
+                if (Sit) Sit = false;
             }
         }
 
         public override void Dead()
         {
-
-        }
+            
+    }
 
         public override void Unconscious()
         {
-            actor.PlayerDownCount += 1;
+            DownTimer -= Time.deltaTime;
+
+            if (DownTimer <= 0)
+            {
+                WakeUP();
+                actor.actorState = Actor.ActorState.Stand;
+                actor.PlayerDownCount++;
+                actor.PlayerHP = 100f;
+                DownTimer = 5f;
+            }
+        }
+
+        private void WakeUP()
+        {
+            actor.bodyType.Head.PartRigidbody.mass = actor.bodyType.HeadMass;
+            actor.bodyType.Chest.PartRigidbody.mass = actor.bodyType.ChestMass;
+            actor.bodyType.Waist.PartRigidbody.mass = actor.bodyType.WaistMass;
+            actor.bodyType.Stomach.PartRigidbody.mass = actor.bodyType.StomachMass;
+            actor.bodyType.Hips.PartRigidbody.mass = actor.bodyType.HipsMass;
+            actor.bodyType.Crotch.PartRigidbody.mass = actor.bodyType.CrotchMass;
+            actor.bodyType.LeftForarm.PartRigidbody.mass = actor.bodyType.LeftForarmMass;
+            actor.bodyType.LeftHand.PartRigidbody.mass = actor.bodyType.LeftHandMass;
+            actor.bodyType.LeftThigh.PartRigidbody.mass = actor.bodyType.LeftThighMass;
+            actor.bodyType.LeftLeg.PartRigidbody.mass = actor.bodyType.LeftLegMass;
+            actor.bodyType.LeftFoot.PartRigidbody.mass = actor.bodyType.LeftFootMass;
+            actor.bodyType.RightArm.PartRigidbody.mass = actor.bodyType.RightArmMass;
+            actor.bodyType.RightForarm.PartRigidbody.mass = actor.bodyType.RightForarmMass;
+            actor.bodyType.RightHand.PartRigidbody.mass = actor.bodyType.RightHandMass;
+            actor.bodyType.RightThigh.PartRigidbody.mass = actor.bodyType.RightThighMass;
+            actor.bodyType.RightLeg.PartRigidbody.mass = actor.bodyType.RightFootMass;
+            actor.bodyType.RightFoot.PartRigidbody.mass = actor.bodyType.RightFootMass;
+            actor.bodyType.Ball.PartRigidbody.mass = actor.bodyType.BallMass;
+            actor.bodyType.Spring.PartRigidbody.mass = actor.bodyType.SpringMass;
         }
 
         public override void ArmReadying(Side side)
@@ -210,9 +246,8 @@ namespace Character
             Vector3 zero = Vector3.zero;
 
             zero = Camera.main.transform.forward; // 카메라의 중앙으로 펀치기점을 잡기위함
-            rigidbody.AddForce(-(zero * 4f) * actor.inputSpamForceModifier, ForceMode.VelocityChange);
-            rigidbody2.AddForce(zero * 4f * actor.inputSpamForceModifier, ForceMode.VelocityChange);
-            actor.bodyType.Chest.PartRigidbody.constraints = RigidbodyConstraints.None;
+            rigidbody.AddForce(-(zero * 6f) * actor.inputSpamForceModifier, ForceMode.VelocityChange);
+            rigidbody2.AddForce(zero * 6f * actor.inputSpamForceModifier, ForceMode.VelocityChange);
         }
 
         public override void ArmHolding(Side side)

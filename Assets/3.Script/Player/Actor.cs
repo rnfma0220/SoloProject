@@ -34,25 +34,30 @@ namespace Character
 
         public MovementHandeler movementHandeler;
 
+        private bool test;
+
         [HideInInspector]
         public PlayerController player;
 
         public bool showForces = true; // 디버그 레이용
 
         [HideInInspector]
-        public float applyedForce = 1f;
+        public float applyedForce { get; private set; }
 
         [HideInInspector]
         public bool isGround = true;
 
         [HideInInspector]
-        public float inputSpamForceModifier = 1f;
+        public float inputSpamForceModifier { get; private set; }
 
 
         private void Start()
         {
             bodyType = GetComponent<BodyType>();
             player = GetComponent<PlayerController>();
+
+            applyedForce = 1f;
+            inputSpamForceModifier = 1f;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -66,15 +71,48 @@ namespace Character
         private void FixedUpdate()
         {
             UpdateState();
+            UnconsciousCheck();
         }
 
-        public void IsGroundedCheck() // 캐릭터가 바닥에있는지 체크
+        private void UnconsciousCheck()
         {
-            isGround = true;
-            if(actorState != ActorState.Stand)
+            if (PlayerHP <= 0 && actorState != ActorState.Dead && actorState != ActorState.Unconscious)
             {
-                actorState = JumpCheck;
+                if(PlayerDownCount == 2)
+                {
+                    actorState = ActorState.Dead;
+                }
+                else
+                {
+                    actorState = ActorState.Unconscious;
+                    UnconsciousMass();
+                    Debug.Log("호출카운");
+                }
             }
+        }
+
+        private void UnconsciousMass()
+        {
+            bodyType.Head.PartRigidbody.mass = 1f;
+            bodyType.Chest.PartRigidbody.mass = 1f;
+            bodyType.Waist.PartRigidbody.mass = 1f;
+            bodyType.Stomach.PartRigidbody.mass = 1f;
+            bodyType.Hips.PartRigidbody.mass = 1f;
+            bodyType.Crotch.PartRigidbody.mass = 1f;
+            bodyType.LeftArm.PartRigidbody.mass = 1f;
+            bodyType.LeftForarm.PartRigidbody.mass = 1f;
+            bodyType.LeftHand.PartRigidbody.mass = 1f;
+            bodyType.LeftThigh.PartRigidbody.mass = 1f;
+            bodyType.LeftLeg.PartRigidbody.mass = 1f;
+            bodyType.LeftFoot.PartRigidbody.mass = 1f;
+            bodyType.RightArm.PartRigidbody.mass = 1f;
+            bodyType.RightForarm.PartRigidbody.mass = 1f;
+            bodyType.RightHand.PartRigidbody.mass = 1f;
+            bodyType.RightThigh.PartRigidbody.mass = 1f;
+            bodyType.RightLeg.PartRigidbody.mass = 1f;
+            bodyType.RightFoot.PartRigidbody.mass = 1f;
+            bodyType.Ball.PartRigidbody.mass = 1f;
+            bodyType.Spring.PartRigidbody.mass = 1f;
         }
 
         private void UpdateState()
