@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headMaterial: {fileID: 0}
   bodyMaterial: {fileID: 0}
-  HexColor: FFA500
+  HexColor: FFFFFF
 --- !u!114 &16190595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,9 +205,7 @@ MonoBehaviour:
   RightAttack: 0
   player: {fileID: 0}
   showForces: 1
-  applyedForce: 1
   isGround: 1
-  inputSpamForceModifier: 1
 --- !u!4 &16190596
 Transform:
   m_ObjectHideFlags: 0
@@ -7214,9 +7212,7 @@ MonoBehaviour:
   RightAttack: 0
   player: {fileID: 0}
   showForces: 1
-  applyedForce: 1
   isGround: 1
-  inputSpamForceModifier: 1
 --- !u!135 &1260621067499749440
 SphereCollider:
   m_ObjectHideFlags: 0

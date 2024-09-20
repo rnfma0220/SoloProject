@@ -149,8 +149,9 @@ namespace Character
 
         public override void Dead()
         {
-            
-    }
+            actor.bodyType.MeshHead.PartRigidbody.gameObject.SetActive(false); // 캐릭터 사망시 캐릭터 렌더 지워서 안보이는거처럼 변경
+            actor.bodyType.MeshBody.PartRigidbody.gameObject.SetActive(false);
+        }
 
         public override void Unconscious()
         {
