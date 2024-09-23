@@ -60,6 +60,7 @@ public class BodyType : MonoBehaviour
     private void OnEnable()
     {
         SetUp();
+        HexColor = PlayerPrefs.GetString("playercolor");
     }
 
     public void SetUp()
