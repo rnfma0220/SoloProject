@@ -59,6 +59,8 @@ public class LoginControll : MonoBehaviour
     {
         public string message;
         public string token;
+        public string NickName;
+        public string PlayerColor;
     }
 
     public void SignUp()
@@ -146,7 +148,11 @@ public class LoginControll : MonoBehaviour
             string requesttext = request.downloadHandler.text;
             string message = JsonUtility.FromJson<LoginResponse>(requesttext).message;
             string token = JsonUtility.FromJson<LoginResponse>(requesttext).token;
+            string nickname = JsonUtility.FromJson<LoginResponse>(requesttext).NickName;
+            string playercolor = JsonUtility.FromJson<LoginResponse>(requesttext).PlayerColor;
             PlayerPrefs.SetString("playertoken", token);
+            PlayerPrefs.SetString("playernickname", nickname);
+            PlayerPrefs.SetString("playercolor", playercolor);
             Login_DebugText.text = message;
             SceneManager.LoadScene(1);
         }
