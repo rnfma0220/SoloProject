@@ -37,11 +37,4 @@ public class ButtonControll : MonoBehaviour
         Application.Quit();
         #endif
     }
-
-    public void Close_Btu()
-    {
-        Login_Panel.SetActive(false);
-        account_Panel.SetActive(false);
-        Signup_Panel.SetActive(false);
-    }
 }

@@ -5,9 +5,9 @@ using Character;
 
 public class BodyType : MonoBehaviour
 {
-    public Material headMaterial;
-    public Material bodyMaterial;
-    public string HexColor;
+    [HideInInspector] public Material headMaterial;
+    [HideInInspector] public Material bodyMaterial;
+    [HideInInspector] public string HexColor;
     public BodySet Head;
 	public BodySet Chest;
 	public BodySet Waist;
@@ -59,8 +59,8 @@ public class BodyType : MonoBehaviour
 
     private void OnEnable()
     {
-        SetUp();
         HexColor = PlayerPrefs.GetString("playercolor");
+        SetUp();
     }
 
     public void SetUp()
@@ -180,6 +180,14 @@ public class BodyType : MonoBehaviour
     {
         headMaterial = MeshHead.PartRenderer.material;
         bodyMaterial = MeshBody.PartRenderer.material;
+        headMaterial.color = HexToColor(HexColor);
+        bodyMaterial.color = HexToColor(HexColor);
+        MeshHead.PartRenderer.material = headMaterial;
+        MeshBody.PartRenderer.material = bodyMaterial;
+    }
+
+    public void ColorChange()
+    {
         headMaterial.color = HexToColor(HexColor);
         bodyMaterial.color = HexToColor(HexColor);
         MeshHead.PartRenderer.material = headMaterial;

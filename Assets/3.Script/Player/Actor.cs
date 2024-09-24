@@ -59,9 +59,6 @@ namespace Character
             applyedForce = 1f;
             inputSpamForceModifier = 1f;
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
             movementHandeler = new MovementHandeler_humanoid();
             movementHandeler.actor = this;
             movementHandeler.direction = bodyType.Chest.PartTransform.forward;
