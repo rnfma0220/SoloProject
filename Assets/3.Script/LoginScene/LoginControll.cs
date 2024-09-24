@@ -146,15 +146,24 @@ public class LoginControll : MonoBehaviour
             yield return request.SendWebRequest();
 
             string requesttext = request.downloadHandler.text;
-            string message = JsonUtility.FromJson<LoginResponse>(requesttext).message;
-            string token = JsonUtility.FromJson<LoginResponse>(requesttext).token;
-            string nickname = JsonUtility.FromJson<LoginResponse>(requesttext).NickName;
-            string playercolor = JsonUtility.FromJson<LoginResponse>(requesttext).PlayerColor;
-            PlayerPrefs.SetString("playertoken", token);
-            PlayerPrefs.SetString("playernickname", nickname);
-            PlayerPrefs.SetString("playercolor", playercolor);
-            Login_DebugText.text = message;
-            SceneManager.LoadScene(1);
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                string message = JsonUtility.FromJson<Response>(requesttext).message;
+                Login_DebugText.text = message;
+            }
+            else
+            {
+                string message = JsonUtility.FromJson<LoginResponse>(requesttext).message;
+                string token = JsonUtility.FromJson<LoginResponse>(requesttext).token;
+                string nickname = JsonUtility.FromJson<LoginResponse>(requesttext).NickName;
+                string playercolor = JsonUtility.FromJson<LoginResponse>(requesttext).PlayerColor;
+                PlayerPrefs.SetString("playertoken", token);
+                PlayerPrefs.SetString("playernickname", nickname);
+                PlayerPrefs.SetString("playercolor", playercolor);
+                Login_DebugText.text = message;
+                SceneManager.LoadScene("RoomScene");
+            }
         }
     }
 
@@ -182,8 +191,17 @@ public class LoginControll : MonoBehaviour
             yield return request.SendWebRequest();
 
             string requesttext = request.downloadHandler.text;
-            string message = JsonUtility.FromJson<Response>(requesttext).message;
-            SingUP_DebugText.text = message;
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                string message = JsonUtility.FromJson<Response>(requesttext).message;
+                SingUP_DebugText.text = message;
+            }
+            else
+            {
+                string message = JsonUtility.FromJson<Response>(requesttext).message;
+                SingUP_DebugText.text = message;
+            }
         }
     }
 
@@ -208,9 +226,17 @@ public class LoginControll : MonoBehaviour
             yield return request.SendWebRequest();
 
             string requesttext = request.downloadHandler.text;
-            string message = JsonUtility.FromJson<Response>(requesttext).message;
 
-            account_DebugText.text = message;
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                string message = JsonUtility.FromJson<Response>(requesttext).message;
+                account_DebugText.text = message;
+            }
+            else
+            {
+                string message = JsonUtility.FromJson<Response>(requesttext).message;
+                account_DebugText.text = message;
+            }
         }
     }
 
