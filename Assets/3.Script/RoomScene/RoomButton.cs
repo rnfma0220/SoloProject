@@ -37,7 +37,7 @@ public class RoomButton : MonoBehaviour
         RoomList.SetActive(true);
     }
 
-    public void RoomCreate_Btu()
+    public void RoomCreate_Btu()    
     {
         if (RoomList.activeSelf) RoomList.SetActive(false);
         if (Changeinfo.activeSelf) Changeinfo.SetActive(false);
