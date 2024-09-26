@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
 namespace Character
 {
-    public class Actor : MonoBehaviour
+    public class Actor : NetworkBehaviour
     {
         [HideInInspector]
         public BodyType bodyType;

@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
+using Fusion;
+using System.Threading.Tasks;
+using Fusion.Sockets;
+using System;
 
 [System.Serializable]
 public class PasswordChangeData
@@ -14,8 +20,6 @@ public class PasswordChangeData
 
 public class RoomButton : MonoBehaviour
 {
-    [SerializeField] private GameObject RoomList;
-    [SerializeField] private GameObject RoomCreate;
     [SerializeField] private GameObject Changeinfo;
     [SerializeField] private GameObject Setting;
 
@@ -28,28 +32,8 @@ public class RoomButton : MonoBehaviour
         public string message;
     }
 
-    public void RoomList_Btu()
-    {
-        if (RoomCreate.activeSelf) RoomCreate.SetActive(false);
-        if (Changeinfo.activeSelf) Changeinfo.SetActive(false);
-        if (Setting.activeSelf) Setting.SetActive(false);
-
-        RoomList.SetActive(true);
-    }
-
-    public void RoomCreate_Btu()    
-    {
-        if (RoomList.activeSelf) RoomList.SetActive(false);
-        if (Changeinfo.activeSelf) Changeinfo.SetActive(false);
-        if (Setting.activeSelf) Setting.SetActive(false);
-
-        RoomCreate.SetActive(true);
-    }
-
     public void PasswordChange_Btu()
     {
-        if (RoomList.activeSelf) RoomList.SetActive(false);
-        if (RoomCreate.activeSelf) RoomCreate.SetActive(false);
         if (Setting.activeSelf) Setting.SetActive(false);
 
         Changeinfo.SetActive(true);
@@ -57,8 +41,6 @@ public class RoomButton : MonoBehaviour
 
     public void Setting_Btu()
     {
-        if (RoomList.activeSelf) RoomList.SetActive(false);
-        if (RoomCreate.activeSelf) RoomCreate.SetActive(false);
         if (Changeinfo.activeSelf) Changeinfo.SetActive(false);
 
         Setting.SetActive(true);
