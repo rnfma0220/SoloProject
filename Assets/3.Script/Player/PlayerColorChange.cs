@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 using Character;
 using System.Text;
 using UnityEngine.Networking;
@@ -14,15 +16,48 @@ public class PlayerColorData
 public class PlayerColorChange : MonoBehaviour
 {
     [SerializeField] private Actor actor;
+    [SerializeField] private TMP_Text Nickname;
+    [SerializeField] private Slider slider_R, slider_G, slider_B;
 
-    public void ColorCh(string ColorHex)
+    private void OnEnable()
     {
-        actor.bodyType.HexColor = ColorHex;
-        PlayerPrefs.SetString("playercolor", ColorHex);
-        actor.bodyType.ColorChange();
-        StartCoroutine(ColorCoroutine(ColorHex));
+        string hex = PlayerPrefs.GetString("playercolor");
+        Nickname.text = PlayerPrefs.GetString("playernickname");
+
+        byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+        byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+        byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+
+        slider_R.value = r;
+        slider_G.value = g;
+        slider_B.value = b;
     }
 
+    public void EditRGB()
+    {
+        if (actor.bodyType == null) return;
+        
+        Color color = new Color32((byte)slider_R.value, (byte)slider_G.value, (byte)slider_B.value, 255);
+        string hexColor = ColorToHex(color);
+        actor.bodyType.HexColor = hexColor;
+        actor.bodyType.ColorChange();
+    }
+
+    private string ColorToHex(Color color)
+    {
+        return string.Format("{0:X2}{1:X2}{2:X2}",
+                             (int)(color.r * 255),
+                             (int)(color.g * 255),
+                             (int)(color.b * 255));
+    }
+
+    public void SetRGB()
+    {
+        string ColorHex = actor.bodyType.HexColor;
+
+        PlayerPrefs.SetString("playercolor", ColorHex);
+        StartCoroutine(ColorCoroutine(ColorHex));
+    }
 
     private IEnumerator ColorCoroutine(string color)
     {

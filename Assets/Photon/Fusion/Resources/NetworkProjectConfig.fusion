@@ -18,9 +18,9 @@
         "ReplicationFeatures": 1,
         "InputTransferMode": 0,
         "SimulationUpdateTimeMode": 0,
-        "PlayerCount": 10,
+        "PlayerCount": 8,
         "TickRateSelection": {
-            "Client": 64,
+            "Client": 32,
             "ServerIndex": 0,
             "ClientSendIndex": 1,
             "ServerSendIndex": 1

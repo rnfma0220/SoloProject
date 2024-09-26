@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
+using Fusion;
 
-public class BodyType : MonoBehaviour
+public class BodyType : NetworkBehaviour
 {
     [HideInInspector] public Material headMaterial;
     [HideInInspector] public Material bodyMaterial;
@@ -196,12 +197,10 @@ public class BodyType : MonoBehaviour
 
     private Color HexToColor(string hex)
     {
-        // 헥사 색상 코드를 RGB로 변환
         byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
         byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
         byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
 
-        // 0-255 범위의 RGB 값을 0.0-1.0 범위로 변환하여 Color 객체 생성
         return new Color32(r, g, b, 255);
     }
 
