@@ -3376,8 +3376,8 @@ GameObject:
   - component: {fileID: 8217847334763927598}
   - component: {fileID: 7947815909437935975}
   - component: {fileID: 8745722695543604377}
+  - component: {fileID: 1744610648974676926}
   - component: {fileID: 7472032991379423186}
-  - component: {fileID: 5194609902835545528}
   m_Layer: 0
   m_Name: actor_humanoid
   m_TagString: Untagged
@@ -3626,6 +3626,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1744610648974676926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6013155331954487481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 1
+  _autoAOIOverride: 0
+  DisableSharedModeInterpolation: 0
 --- !u!114 &7472032991379423186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3646,20 +3662,7 @@ MonoBehaviour:
   - {fileID: 2344179667467550508}
   - {fileID: 4704342389768419276}
   - {fileID: 7947815909437935975}
---- !u!114 &5194609902835545528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6013155331954487481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1541381998, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Guid:
-    RawGuidValue: 00000000000000000000000000000000
+  - {fileID: 1744610648974676926}
 --- !u!1 &6034117102885511903
 GameObject:
   m_ObjectHideFlags: 0

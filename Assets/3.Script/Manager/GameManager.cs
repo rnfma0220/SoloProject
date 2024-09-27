@@ -16,7 +16,6 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
 
     public NetworkObject MyPlayerPrefab;
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -102,7 +101,7 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
     private async void CreateNewSession()
     {
         var sceneInfo = new NetworkSceneInfo();
-        sceneInfo.AddSceneRef(SceneRef.FromIndex(2));
+        sceneInfo.AddSceneRef(SceneRef.FromIndex(3));
 
         var result = await runner.StartGame(new StartGameArgs()
         {
@@ -149,7 +148,8 @@ public class GameManager : NetworkBehaviour, INetworkRunnerCallbacks
         if (runner.LocalPlayer == player)
         {
             // 로컬 플레이어 오브젝트 생성
-            NetworkObject localPlayerObject = runner.Spawn(MyPlayerPrefab, new Vector3(2.5f, 15f, 0f), Quaternion.identity, player);
+            NetworkObject PlayerObject = runner.Spawn(MyPlayerPrefab, new Vector3(5f, 12f, -13f), Quaternion.identity, player);
+            runner.SetPlayerObject(player, PlayerObject);
         }
     }
 

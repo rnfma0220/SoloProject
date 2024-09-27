@@ -84,7 +84,6 @@ namespace Character
                 {
                     actorState = ActorState.Unconscious;
                     UnconsciousMass();
-                    Debug.Log("호출카운");
                 }
             }
         }
