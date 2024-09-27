@@ -56,14 +56,11 @@ namespace Character
 
                     if (collision.gameObject.name == "actor_head_collider")
                     {
-                        Debug.Log("뚝배기 공격 : " + Headdamage);
                         test.GetComponent<Actor>().PlayerHP -= Headdamage;
                         actor.LeftAttack = false;
                     }
                     else
                     {
-                        Debug.Log("나머지부위");
-                        Debug.Log("충돌로 인한 힘: " + impactForce);
                         test.GetComponent<Actor>().PlayerHP -= impactForce;
                         actor.LeftAttack = false;
                     }
@@ -86,14 +83,11 @@ namespace Character
 
                     if (collision.gameObject.name == "actor_head_collider")
                     {
-                        Debug.Log("뚝배기 공격 : " + Headdamage);
                         test.GetComponent<Actor>().PlayerHP -= Headdamage;
                         actor.RightAttack = false;
                     }
                     else
                     {
-                        Debug.Log("나머지부위");
-                        Debug.Log("충돌로 인한 힘: " + impactForce);
                         test.GetComponent<Actor>().PlayerHP -= impactForce;
                         actor.RightAttack = false;
                     }
