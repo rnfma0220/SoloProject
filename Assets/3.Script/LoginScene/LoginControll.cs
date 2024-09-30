@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System.Text;
 using System;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -29,7 +31,7 @@ public class AccountData
     public string Email;
 }
 
-public class LoginControll : MonoBehaviour
+public class LoginControll : MonoBehaviourPunCallbacks
 {
     #region 회원가입
     [SerializeField] private TMP_InputField SingUP_Nickname;
@@ -43,6 +45,7 @@ public class LoginControll : MonoBehaviour
     [SerializeField] private TMP_InputField Login_ID;
     [SerializeField] private TMP_InputField Login_Password;
     [SerializeField] private TMP_Text Login_DebugText;
+    [SerializeField] private GameObject Loading;
     #endregion
 
     #region 계정찾기
@@ -158,13 +161,24 @@ public class LoginControll : MonoBehaviour
                 string token = JsonUtility.FromJson<LoginResponse>(requesttext).token;
                 string nickname = JsonUtility.FromJson<LoginResponse>(requesttext).NickName;
                 string playercolor = JsonUtility.FromJson<LoginResponse>(requesttext).PlayerColor;
-                PlayerPrefs.SetString("playertoken", token);
-                PlayerPrefs.SetString("playernickname", nickname);
-                PlayerPrefs.SetString("playercolor", playercolor);
+
+                UserManager.Instance.user = new User(playercolor, token, nickname);
                 Login_DebugText.text = message;
-                SceneManager.LoadScene("RoomScene");
+                Loading.SetActive(true);
+                PhotonNetwork.ConnectUsingSettings();
             }
         }
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnJoinedLobby()
+    {
+        PhotonNetwork.NickName = UserManager.Instance.user.Nickname;
+        SceneManager.LoadScene("RoomScene");
     }
 
     private IEnumerator RegisterCoroutine(string id, string password, string email, string nickname)

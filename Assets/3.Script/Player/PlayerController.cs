@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Fusion;
 
 namespace Character
 {
-    public class PlayerController : NetworkBehaviour
+    public class PlayerController : MonoBehaviour
     {
         private Vector3 moveDirection;
         private float moveSpeed = 20f;
@@ -147,30 +146,6 @@ namespace Character
 
         }
 
-        private IEnumerator Attack_Co(MovementHandeler.Side side)
-        {
-            yield return new WaitForSeconds(1f);
-
-            if(side == MovementHandeler.Side.Left)
-            {
-                if (actor.LeftAttack)
-                {
-                    actor.LeftAttack = false;
-                }
-                Debug.Log("왼손 코루틴 작동");
-                yield break;
-            }
-            else
-            {
-                if (actor.RightAttack)
-                {
-                    actor.RightAttack = false;
-                    Debug.Log("오른손 코루틴 작동");
-                }
-                yield break;
-            }
-        }
-
         public void OnMove(InputAction.CallbackContext context)
         {
             if (actor.actorState == Actor.ActorState.Unconscious) return;
@@ -298,7 +273,7 @@ namespace Character
 
         public void OnSit(InputAction.CallbackContext context)
         {
-            if(actor.movementHandeler.Sit)
+            if (actor.movementHandeler.Sit)
             {
                 actor.movementHandeler.Sit = false;
             }
@@ -312,7 +287,6 @@ namespace Character
         {
             if(actor.actorState == Actor.ActorState.Jump)
             {
-                Debug.Log("점프킥 실행");
             }
         }
     }
