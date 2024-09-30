@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using Character;
 using System.Text;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine.Networking;
 
 [System.Serializable]
@@ -21,8 +23,8 @@ public class PlayerColorChange : MonoBehaviour
 
     private void OnEnable()
     {
-        string hex = PlayerPrefs.GetString("playercolor");
-        Nickname.text = PlayerPrefs.GetString("playernickname");
+        string hex = UserManager.Instance.user.User_Color;
+        Nickname.text = PhotonNetwork.NickName;
 
         byte r = byte.Parse(hex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
         byte g = byte.Parse(hex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
@@ -54,8 +56,6 @@ public class PlayerColorChange : MonoBehaviour
     public void SetRGB()
     {
         string ColorHex = actor.bodyType.HexColor;
-
-        PlayerPrefs.SetString("playercolor", ColorHex);
         StartCoroutine(ColorCoroutine(ColorHex));
     }
 
@@ -63,7 +63,7 @@ public class PlayerColorChange : MonoBehaviour
     {
         string uri = "https://kiwebmeta7mh.o-r.kr/api/changecolor";
 
-        string token = PlayerPrefs.GetString("playertoken");
+        string token = UserManager.Instance.user.Token;
 
         PlayerColorData data = new PlayerColorData()
         {
@@ -83,8 +83,9 @@ public class PlayerColorChange : MonoBehaviour
             yield return request.SendWebRequest();
 
             string requesttext = request.downloadHandler.text;
-            Debug.Log(requesttext);
-            PlayerPrefs.SetString("playercolor", color);
+            //Debug.Log(requesttext);
+
+            UserManager.Instance.user = new User(color, UserManager.Instance.user.Token, UserManager.Instance.user.Nickname);
         }
     }
 }

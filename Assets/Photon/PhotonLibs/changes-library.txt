@@ -4,6 +4,9 @@ www.photonengine.com  -  Join our Discord Server: https://dashboard.photonengine
 
 
 
+Version 4.1.8.9 (02. September 2024 - rev7660)
+    No notable changes.
+
 Version 4.1.8.8 (02. August 2024 - rev7638)
     Fixed: TCP specific issue where RTT always goes up. This TCP RTT bug was first in v4.1.8.5 (13. May 2024 - rev7556).
     Changed: SendPing handling for the fix. Pings are again directly sent right away - unless the peer was sending a regular, stand-alone init-request. Then waitForInitResponse is used to prevent sending a ping message early.

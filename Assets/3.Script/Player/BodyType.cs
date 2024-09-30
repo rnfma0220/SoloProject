@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Character;
-using Fusion;
 
-public class BodyType : NetworkBehaviour
+public class BodyType : MonoBehaviour
 {
     [HideInInspector] public Material headMaterial;
     [HideInInspector] public Material bodyMaterial;
@@ -60,7 +59,7 @@ public class BodyType : NetworkBehaviour
 
     private void OnEnable()
     {
-        HexColor = PlayerPrefs.GetString("playercolor");
+        HexColor = UserManager.Instance.user.User_Color;
         SetUp();
     }
 

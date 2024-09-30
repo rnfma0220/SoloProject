@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Fusion;
 
 namespace Character
 {
-    public class Actor : NetworkBehaviour
+    public class Actor : MonoBehaviour
     {
         [HideInInspector]
         public BodyType bodyType;
@@ -20,7 +19,6 @@ namespace Character
         }
 
         public ActorState actorState;
-
         public ActorState lastActorState;
 
         public float PlayerHP = 100f;
@@ -34,8 +32,6 @@ namespace Character
         public bool RightAttack = false;
 
         public MovementHandeler movementHandeler;
-
-        private bool test;
 
         [HideInInspector]
         public PlayerController player;
@@ -51,19 +47,21 @@ namespace Character
         [HideInInspector]
         public float inputSpamForceModifier { get; private set; }
 
-
         private void Start()
         {
             bodyType = GetComponent<BodyType>();
             player = GetComponent<PlayerController>();
-
+        
             applyedForce = 1f;
             inputSpamForceModifier = 1f;
-
-            movementHandeler = new MovementHandeler_humanoid();
-            movementHandeler.actor = this;
-            movementHandeler.direction = bodyType.Chest.PartTransform.forward;
-            movementHandeler.lookDirection = movementHandeler.direction + new Vector3(0f, 0.1f, 0f);
+        
+            if (movementHandeler == null)
+            {
+                movementHandeler = new MovementHandeler_humanoid();
+                movementHandeler.actor = this;
+                movementHandeler.direction = bodyType.Chest.PartTransform.forward;
+                movementHandeler.lookDirection = movementHandeler.direction + new Vector3(0f, 0.1f, 0f);
+            }
         }
 
         private void FixedUpdate()
