@@ -3564,7 +3564,6 @@ GameObject:
   - component: {fileID: 7947815909437935975}
   - component: {fileID: 8745722695543604377}
   - component: {fileID: 2429261717033749998}
-  - component: {fileID: -5888718238035757927}
   - component: {fileID: -7976279344098732254}
   m_Layer: 0
   m_Name: actor_humanoid
@@ -3829,11 +3828,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 3
+  Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: -5888718238035757927}
   - {fileID: -7976279344098732254}
   - {fileID: 2594861227135567548}
   - {fileID: 3702331058138786992}
@@ -3858,22 +3856,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-5888718238035757927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6013155331954487481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &-7976279344098732254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4443,6 +4425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2521782106373870333}
+  - component: {fileID: 934751509723954861}
   m_Layer: 8
   m_Name: helper_cameraTarget
   m_TagString: Camera Target (Track)
@@ -4465,6 +4448,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1260952141742240647}
   m_LocalEulerAnglesHint: {x: -0.000029825234, y: -0, z: 0}
+--- !u!114 &934751509723954861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6921572544707717688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ba9a7a6d76e764e9afd6fe3b7a83eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2521782106373870333}
+  distanceFromTarget: 4
+  sensitivityX: 3
+  sensitivityY: 2
+  minYAngle: 20
+  maxYAngle: 50
 --- !u!1 &7089762275915607776
 GameObject:
   m_ObjectHideFlags: 0
