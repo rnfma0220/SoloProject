@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace Character
 {
-    public class Actor : MonoBehaviour
+    public class Actor : MonoBehaviourPun
     {
         [HideInInspector]
         public BodyType bodyType;
@@ -49,6 +51,8 @@ namespace Character
 
         private void Start()
         {
+            if (!photonView.IsMine) return;
+
             bodyType = GetComponent<BodyType>();
             player = GetComponent<PlayerController>();
         
@@ -66,6 +70,8 @@ namespace Character
 
         private void FixedUpdate()
         {
+            if (!photonView.IsMine) return;
+
             UpdateState();
             UnconsciousCheck();
         }

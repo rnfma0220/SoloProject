@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace Character
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviourPun
     {
         private Vector3 moveDirection;
         private float moveSpeed = 20f;
@@ -38,7 +40,7 @@ namespace Character
         }
 
         private void FixedUpdate()
-        {
+        {       
             if (moveDirection != Vector3.zero)
             {
                 if (actor.actorState == Actor.ActorState.Unconscious || actor.actorState == Actor.ActorState.Dead) return;
@@ -148,6 +150,7 @@ namespace Character
 
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (!photonView.IsMine) return;
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -174,6 +177,7 @@ namespace Character
 
         public void OnHandUp(InputAction.CallbackContext context)
         {
+            if (!photonView.IsMine) return;
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -190,6 +194,7 @@ namespace Character
 
         public void OnJumpRun(InputAction.CallbackContext context)
         {
+            if (!photonView.IsMine) return;
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -222,6 +227,7 @@ namespace Character
 
         public void OnLeftHand(InputAction.CallbackContext context)
         {
+            if (!photonView.IsMine) return;
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -248,6 +254,7 @@ namespace Character
 
         public void OnRightHand(InputAction.CallbackContext context)
         {
+            if (!photonView.IsMine) return;
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -273,6 +280,7 @@ namespace Character
 
         public void OnSit(InputAction.CallbackContext context)
         {
+            if (!photonView.IsMine) return;
             if (actor.movementHandeler.Sit)
             {
                 actor.movementHandeler.Sit = false;
@@ -285,6 +293,7 @@ namespace Character
 
         public void OnJumpKick(InputAction.CallbackContext context)
         {
+
             if(actor.actorState == Actor.ActorState.Jump)
             {
             }

@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 
 namespace Character
 {
-    public class BodyColliderCheck : MonoBehaviour
+    public class BodyColliderCheck : MonoBehaviourPun
     {
         private Actor actor;
 
         private void Start()
         {
+            if (!photonView.IsMine) return;
+
             actor = GetComponentInParent<Actor>();
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (!photonView.IsMine) return;
+
             if (collision.gameObject.transform.root == transform.root)
             {
                 return;
@@ -97,6 +103,8 @@ namespace Character
 
         private void OnCollisionExit(Collision collision)
         {
+            if (!photonView.IsMine) return;
+
             if (gameObject.name == "actor_leftHand_collider")
             {
                 actor.movementHandeler.LeftHandObject = null;
