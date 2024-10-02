@@ -17,7 +17,7 @@ public class PlayerColorData
 
 public class PlayerColorChange : MonoBehaviour
 {
-    [SerializeField] private Actor actor;
+    [SerializeField] private ViewPlayer actor;
     [SerializeField] private TMP_Text Nickname;
     [SerializeField] private Slider slider_R, slider_G, slider_B;
 

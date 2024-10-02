@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Character;
 
 public class BodyType : MonoBehaviour
@@ -215,6 +216,10 @@ public class BodyType : MonoBehaviour
 
     private void AddColliderCheck(Collider partCollider)
     {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (currentSceneName == "RoomScene") return;
+
         if (partCollider != null)
         {
             partCollider.gameObject.AddComponent<BodyColliderCheck>();

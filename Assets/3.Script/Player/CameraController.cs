@@ -25,6 +25,7 @@ public class CameraController : MonoBehaviourPun
     private void FixedUpdate()
     {
         if (!photonView.IsMine) return;
+
         if (Camera.main == null) return; // 메인 카메라가 없다면 실행 중지
 
         // 마우스 입력을 받아 카메라 회전 제어

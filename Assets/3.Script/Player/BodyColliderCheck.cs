@@ -4,17 +4,14 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-
 namespace Character
 {
     public class BodyColliderCheck : MonoBehaviourPun
     {
-        private Actor actor;
+        [SerializeField] private Actor actor;
 
         private void Start()
         {
-            if (!photonView.IsMine) return;
-
             actor = GetComponentInParent<Actor>();
         }
 
@@ -56,46 +53,52 @@ namespace Character
                 {
                     float impactForce = collision.relativeVelocity.magnitude;
 
+                    // 데미지 계산
                     float Headdamage = impactForce * 3f;
+                    float BodyDamage = impactForce;
 
-                    GameObject test = collision.gameObject.transform.root.gameObject;
+                    // 데미지 받을 객체 가져오기
+                    GameObject target = collision.gameObject.transform.root.gameObject;
 
                     if (collision.gameObject.name == "actor_head_collider")
                     {
-                        test.GetComponent<Actor>().PlayerHP -= Headdamage;
-                        actor.LeftAttack = false;
+                        actor.AttackDamage(target, Headdamage);
+                        actor.RightAttack = false;
                     }
                     else
                     {
-                        test.GetComponent<Actor>().PlayerHP -= impactForce;
-                        actor.LeftAttack = false;
+                        actor.AttackDamage(target, BodyDamage);
+                        actor.RightAttack = false;
                     }
                 }
-            }
 
-            if (gameObject.name == "actor_rightHand_collider")
-            {
-                actor.movementHandeler.RightHandObject = collision.gameObject;
-
-                if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.RightAttack &&
-                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Unconscious &&
-                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Dead)
+                if (gameObject.name == "actor_rightHand_collider")
                 {
-                    float impactForce = collision.relativeVelocity.magnitude;
+                    actor.movementHandeler.RightHandObject = collision.gameObject;
 
-                    float Headdamage = impactForce * 3f;
-
-                    GameObject test = collision.gameObject.transform.root.gameObject;
-
-                    if (collision.gameObject.name == "actor_head_collider")
+                    if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.RightAttack &&
+                        collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Unconscious &&
+                        collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Dead)
                     {
-                        test.GetComponent<Actor>().PlayerHP -= Headdamage;
-                        actor.RightAttack = false;
-                    }
-                    else
-                    {
-                        test.GetComponent<Actor>().PlayerHP -= impactForce;
-                        actor.RightAttack = false;
+                        float impactForce = collision.relativeVelocity.magnitude;
+
+                        // 데미지 계산
+                        float Headdamage = impactForce * 3f;
+                        float BodyDamage = impactForce;
+
+                        // 데미지 받을 객체 가져오기
+                        GameObject target = collision.gameObject.transform.root.gameObject;
+
+                        if (collision.gameObject.name == "actor_head_collider")
+                        {
+                            actor.AttackDamage(target, Headdamage);
+                            actor.RightAttack = false;
+                        }
+                        else
+                        {
+                            actor.AttackDamage(target, BodyDamage);
+                            actor.RightAttack = false;
+                        }
                     }
                 }
             }
@@ -115,6 +118,5 @@ namespace Character
                 actor.movementHandeler.RightHandObject = null;
             }
         }
-
     }
 }

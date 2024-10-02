@@ -40,7 +40,9 @@ namespace Character
         }
 
         private void FixedUpdate()
-        {       
+        {
+            if (!photonView.IsMine) return;
+
             if (moveDirection != Vector3.zero)
             {
                 if (actor.actorState == Actor.ActorState.Unconscious || actor.actorState == Actor.ActorState.Dead) return;
@@ -151,6 +153,7 @@ namespace Character
         public void OnMove(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
+
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -178,6 +181,7 @@ namespace Character
         public void OnHandUp(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
+
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -195,6 +199,7 @@ namespace Character
         public void OnJumpRun(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
+
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -228,6 +233,7 @@ namespace Character
         public void OnLeftHand(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
+
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -255,6 +261,7 @@ namespace Character
         public void OnRightHand(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
+
             if (actor.actorState == Actor.ActorState.Unconscious) return;
             if (actor.actorState == Actor.ActorState.Dead) return;
 
@@ -281,6 +288,7 @@ namespace Character
         public void OnSit(InputAction.CallbackContext context)
         {
             if (!photonView.IsMine) return;
+
             if (actor.movementHandeler.Sit)
             {
                 actor.movementHandeler.Sit = false;

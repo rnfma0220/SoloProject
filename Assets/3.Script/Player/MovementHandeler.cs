@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 namespace Character
 {
-    public class MovementHandeler
-    {
+	public class MovementHandeler
+	{
 		public enum Side
 		{
 			Left = 0,
 			Right = 1
 		}
 
-		public Transform localTransform;
-
-        public Actor actor;
+		public Actor actor;
 
 		public Vector3 direction;
 		public Vector3 rawDirection;
@@ -25,7 +25,7 @@ namespace Character
 
 		public float armCheeringForce = 10f;
 
-        public bool stateChange = true;
+		public bool stateChange = true;
 
 		public bool Sit = false;
 
@@ -67,5 +67,5 @@ namespace Character
 				}
 			}
 		}
-	}
+    }
 }

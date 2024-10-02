@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace Character
 {
@@ -272,7 +273,7 @@ namespace Character
             }
             Vector3 zero = Vector3.zero;
 
-            //zero = Camera.main.transform.forward; // 카메라의 중앙으로 펀치기점을 잡기위함
+            zero = Camera.main.transform.forward; // 카메라의 중앙으로 펀치기점을 잡기위함
 
             AlignToVector(part, transform.up, -zero, 0.01f, 10f);
             AlignToVector(part2, transform2.up, -zero, 0.01f, 10f);
@@ -328,7 +329,7 @@ namespace Character
             }
             Vector3 zero = Vector3.zero;
 
-            //zero = Camera.main.transform.forward; // 카메라의 중앙으로 펀치기점을 잡기위함
+            zero = Camera.main.transform.forward; // 카메라의 중앙으로 펀치기점을 잡기위함
 
             AlignToVector(part, transform.up, -zero, 0.01f, 10f);
             AlignToVector(part2, transform2.up, -zero, 0.01f, 10f);
