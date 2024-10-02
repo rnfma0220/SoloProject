@@ -21,6 +21,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject Changeinfo;
     [SerializeField] private GameObject Setting;
+    [SerializeField] private GameObject MaMatchmaking;
 
     [SerializeField] private TMP_InputField Cheange_Old;
     [SerializeField] private TMP_InputField Cheange_New;
@@ -29,6 +30,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
     private class Response
     {
         public string message;
+    }
+
+    private void Start()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public void PasswordChange_Btu()
@@ -59,23 +65,54 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         RoomOptions options = new RoomOptions();
-        options.MaxPlayers = 4; // 최대 플레이어 수 설정
+        options.MaxPlayers = 2; // 최대 플레이어 수 설정
         PhotonNetwork.CreateRoom(null, options); // 룸 이름을 null로 설정하면 무작위 이름이 부여됩니다.
     }
 
     public override void OnJoinedRoom()
     {
-        SceneManager.sceneLoaded += SceneLoaded;
-        Debug.Log(PhotonNetwork.CurrentRoom.Name + "방에 입장하였습니다.");
-        SceneManager.LoadScene("Char");
+        Debug.Log("방에 입장했습니다. 현재 인원: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        MaMatchmaking.SetActive(true);
+        // 방에 입장한 후, 플레이어 수를 확인
+        CheckPlayersAndStartGame();
     }
 
-    private void SceneLoaded(Scene scene, LoadSceneMode mode)
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log("새로운 플레이어가 입장했습니다. 현재 인원: " + PhotonNetwork.CurrentRoom.PlayerCount);
+
+        // 새로운 플레이어가 입장할 때마다 플레이어 수를 확인
+        CheckPlayersAndStartGame();
+    }
+
+    private void CheckPlayersAndStartGame()
+    {
+        // 플레이어 수가 최대값(2명)에 도달하면 씬 이동
+        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            Debug.Log("모든 플레이어가 입장했습니다. 게임을 시작합니다.");
+            MaMatchmaking.SetActive(false);
+
+            // 마스터 클라이언트만 씬을 로드하고, 자동으로 다른 플레이어들에게도 씬을 동기화
+            if (PhotonNetwork.IsMasterClient)
+            {
+                SceneManager.sceneLoaded += OnSceneLoaded;
+                PhotonNetwork.LoadLevel("Char"); // 게임 씬으로 이동
+            }
+            else
+            {
+                SceneManager.sceneLoaded += OnSceneLoaded;
+            }
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         PhotonNetwork.Instantiate("actor_humanoid", Vector3.zero, Quaternion.identity);
-
-        SceneManager.sceneLoaded -= SceneLoaded;
+        
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
 
     public void PasswordChange()
     {
@@ -83,7 +120,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         if (Cheange_Old.text == string.Empty)
         {
-            Password_DebugText.text = "기존 비밀번호를 입력해주세요.";
+            Password_DebugText.text = "기존 비밀번호를 입력해주세요들송.";
         }
         else if (Cheange_New.text == string.Empty)
         {

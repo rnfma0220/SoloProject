@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 using System;
+using Character;
 
 public class User
 {
@@ -17,7 +21,7 @@ public class User
     }
 }
 
-public class UserManager : MonoBehaviour
+public class UserManager : MonoBehaviourPunCallbacks
 {
     public static UserManager Instance { get; private set; }
 

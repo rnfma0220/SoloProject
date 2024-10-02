@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 namespace Character
 {
-    public class Actor : MonoBehaviourPun
+    public class Actor : MonoBehaviourPun, IPunObservable
     {
         [HideInInspector]
         public BodyType bodyType;
@@ -51,14 +51,12 @@ namespace Character
 
         private void Start()
         {
-            if (!photonView.IsMine) return;
-
             bodyType = GetComponent<BodyType>();
             player = GetComponent<PlayerController>();
-        
+
             applyedForce = 1f;
             inputSpamForceModifier = 1f;
-        
+
             if (movementHandeler == null)
             {
                 movementHandeler = new MovementHandeler_humanoid();
@@ -70,10 +68,15 @@ namespace Character
 
         private void FixedUpdate()
         {
-            if (!photonView.IsMine) return;
-
-            UpdateState();
-            UnconsciousCheck();
+            if (photonView.IsMine)
+            {
+                UpdateState();
+                UnconsciousCheck();
+            }
+            else
+            {
+                ApplyRemoteState();
+            }
         }
 
         private void UnconsciousCheck()
@@ -90,6 +93,39 @@ namespace Character
                     UnconsciousMass();
                 }
             }
+        }
+
+        private void ApplyRemoteState()
+        {
+            ExecuteMovement();
+        }
+
+        private void ExecuteMovement()
+        {
+            switch (actorState)
+            {
+                case ActorState.Dead:
+                    movementHandeler.Dead();
+                    break;
+                case ActorState.Unconscious:
+                    movementHandeler.Unconscious();
+                    break;
+                case ActorState.Stand:
+                    movementHandeler.Stand();
+                    break;
+                case ActorState.Run:
+                    movementHandeler.Run();
+                    break;
+                case ActorState.Jump:
+                    movementHandeler.Jump();
+                    break;
+            }
+        }
+
+        [PunRPC]
+        public void SyncActorState(int state)
+        {
+            actorState = (ActorState)state;
         }
 
         private void UnconsciousMass()
@@ -121,6 +157,8 @@ namespace Character
             if (actorState != lastActorState)
             {
                 movementHandeler.stateChange = true;
+
+                photonView.RPC("SyncActorState", RpcTarget.Others, actorState);
             }
             else
             {
@@ -164,5 +202,52 @@ namespace Character
             inputSpamForceModifier = Mathf.Clamp(inputSpamForceModifier + Time.deltaTime / 2f, 0.01f, 1f);
         }
 
+        public void AttackDamage(GameObject target, float damage)
+        {
+            PhotonView targetPhotonView = target.GetComponent<PhotonView>();
+
+            if (targetPhotonView != null)
+            {
+                // 대상에게 RPC로 데미지 전달
+                photonView.RPC("ApplyDamage", RpcTarget.All, targetPhotonView.ViewID, damage);
+            }
+        }
+
+        [PunRPC]
+        public void ApplyDamage(int targetViewID, float damage)
+        {
+            // PhotonView ID로 타겟을 찾음
+            PhotonView targetView = PhotonView.Find(targetViewID);
+
+            if (targetView != null)
+            {
+                Actor targetActor = targetView.GetComponent<Actor>();
+                if (targetActor != null)
+                {
+                    // 타겟 Actor의 HP 감소
+                    targetActor.PlayerHP -= damage;
+                }
+            }
+        }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting) 
+            {
+                stream.SendNext(actorState);
+                stream.SendNext(PlayerHP);
+                stream.SendNext(PlayerDownCount);
+                stream.SendNext(movementHandeler.direction);
+                stream.SendNext(movementHandeler.lookDirection);
+            }
+            else 
+            {
+                actorState = (ActorState)stream.ReceiveNext();
+                PlayerHP = (float)stream.ReceiveNext();
+                PlayerDownCount = (int)stream.ReceiveNext();
+                movementHandeler.direction = (Vector3)stream.ReceiveNext();
+                movementHandeler.lookDirection = (Vector3)stream.ReceiveNext();
+            }
+        }
     }
 }
