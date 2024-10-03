@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 4051193682117561582}
   - component: {fileID: 9194045798302480244}
   - component: {fileID: 9070581085902755294}
+  - component: {fileID: 5674975115699350282}
   m_Layer: 8
   m_Name: actor_head_collider
   m_TagString: Body (High Priority)
@@ -320,6 +321,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5674975115699350282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751056284866764906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1138933619811988324
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +351,7 @@ GameObject:
   - component: {fileID: 7073422347970755220}
   - component: {fileID: 662301741562138867}
   - component: {fileID: 7758304406749073595}
+  - component: {fileID: 2186169404027685821}
   m_Layer: 8
   m_Name: actor_hips_collider
   m_TagString: Body (Medium Priority)
@@ -563,6 +581,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2186169404027685821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138933619811988324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1333998657190921572
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +609,7 @@ GameObject:
   - component: {fileID: 8329391319789258741}
   - component: {fileID: 1778502527294622477}
   - component: {fileID: 7446159902244215946}
+  - component: {fileID: 2288390715500762744}
   m_Layer: 19
   m_Name: actor_leftFoot_helper
   m_TagString: Untagged
@@ -747,6 +782,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2288390715500762744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333998657190921572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1397946329374267298
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +1012,7 @@ GameObject:
   - component: {fileID: 8325712187580438122}
   - component: {fileID: 7405511199934503888}
   - component: {fileID: 7030829717729505342}
+  - component: {fileID: 3024808040784049914}
   m_Layer: 19
   m_Name: actor_spring_helper
   m_TagString: Untagged
@@ -1134,6 +1186,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3024808040784049914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858002799526742967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &2387291755922237803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,6 +1216,7 @@ GameObject:
   - component: {fileID: 6707830064524907706}
   - component: {fileID: 6162054962781274336}
   - component: {fileID: 6701892945293763518}
+  - component: {fileID: 3648712763616332634}
   m_Layer: 8
   m_Name: actor_crotch_collider
   m_TagString: Body (High Priority)
@@ -1372,6 +1441,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3648712763616332634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2387291755922237803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &2578316370391872197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1555,7 @@ GameObject:
   - component: {fileID: 4027760624682947342}
   - component: {fileID: 5944947372810525470}
   - component: {fileID: 5795440707385009086}
+  - component: {fileID: 3944726104597450896}
   m_Layer: 8
   m_Name: actor_rightThigh_collider
   m_TagString: Body (Low Priority)
@@ -1695,6 +1781,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3944726104597450896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2761055014550717580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &2922373603954758675
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,6 +1811,7 @@ GameObject:
   - component: {fileID: 3081525317983695983}
   - component: {fileID: 9170361431270976332}
   - component: {fileID: 2313112407978517018}
+  - component: {fileID: 662898112831248506}
   m_Layer: 8
   m_Name: actor_waist_collider
   m_TagString: Prop (Medium Priority)
@@ -1935,6 +2038,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &662898112831248506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2922373603954758675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &2952719540752282706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,6 +2068,7 @@ GameObject:
   - component: {fileID: 6165489487668838753}
   - component: {fileID: 2450400682118642754}
   - component: {fileID: 5983661810676653247}
+  - component: {fileID: 7473678110952540642}
   m_Layer: 8
   m_Name: actor_leftForarm_collider
   m_TagString: Body (Low Priority)
@@ -2175,6 +2295,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7473678110952540642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2952719540752282706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &3018285726627239835
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,6 +2325,7 @@ GameObject:
   - component: {fileID: 3257499273488846309}
   - component: {fileID: 4328673443318907892}
   - component: {fileID: 8339554632331193655}
+  - component: {fileID: 5474821098027633396}
   m_Layer: 8
   m_Name: actor_stomach_collider
   m_TagString: Body (High Priority)
@@ -2413,6 +2550,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5474821098027633396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018285726627239835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &3265637433824377264
 GameObject:
   m_ObjectHideFlags: 0
@@ -2512,6 +2665,7 @@ GameObject:
   - component: {fileID: 8578655078523467714}
   - component: {fileID: 2622387090191362445}
   - component: {fileID: 392116832359723173}
+  - component: {fileID: 2900910490282096907}
   m_Layer: 8
   m_Name: actor_rightArm_collider
   m_TagString: Body (Low Priority)
@@ -2737,6 +2891,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2900910490282096907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3664686771809694686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &3884781740813809798
 GameObject:
   m_ObjectHideFlags: 0
@@ -3140,6 +3310,7 @@ GameObject:
   - component: {fileID: 9205468624773089524}
   - component: {fileID: 9196792791505319879}
   - component: {fileID: 5627030630514869909}
+  - component: {fileID: 7745692559255393648}
   m_Layer: 9
   m_Name: actor_ball_collider
   m_TagString: Untagged
@@ -3362,6 +3533,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7745692559255393648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5963150788190573791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &6013155331954487481
 GameObject:
   m_ObjectHideFlags: 0
@@ -3646,6 +3833,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2344179667467550508}
+  - {fileID: 6084706805276586956}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -3679,6 +3867,7 @@ GameObject:
   - component: {fileID: 8768303757784853193}
   - component: {fileID: 942224325617621431}
   - component: {fileID: 3506372407189728414}
+  - component: {fileID: 7682229760095896974}
   m_Layer: 8
   m_Name: actor_leftThigh_collider
   m_TagString: Body (Low Priority)
@@ -3904,6 +4093,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7682229760095896974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034117102885511903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &6708076305160662596
 GameObject:
   m_ObjectHideFlags: 0
@@ -3950,6 +4155,7 @@ GameObject:
   - component: {fileID: 9098028500237180823}
   - component: {fileID: 692182869379083972}
   - component: {fileID: 7737080144173773694}
+  - component: {fileID: 6907081698568737343}
   m_Layer: 8
   m_Name: actor_leftArm_collider
   m_TagString: Body (Low Priority)
@@ -4175,6 +4381,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &6907081698568737343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6751322969943841571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &6921572544707717688
 GameObject:
   m_ObjectHideFlags: 0
@@ -4239,6 +4461,7 @@ GameObject:
   - component: {fileID: 4441391085595332629}
   - component: {fileID: 1179119332307723405}
   - component: {fileID: 4547118496947948640}
+  - component: {fileID: 1860808466944991434}
   m_Layer: 8
   m_Name: actor_leftLeg_collider
   m_TagString: Body (Low Priority)
@@ -4464,6 +4687,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1860808466944991434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7089762275915607776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &7157624832089513086
 GameObject:
   m_ObjectHideFlags: 0
@@ -4565,6 +4804,7 @@ GameObject:
   - component: {fileID: 5057192902636802566}
   - component: {fileID: 7909788448409771741}
   - component: {fileID: 3169408750639770668}
+  - component: {fileID: 14576792343541968}
   m_Layer: 8
   m_Name: actor_leftHand_collider
   m_TagString: Body (Low Priority)
@@ -4787,6 +5027,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &14576792343541968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480274418537060644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &7577590278786355842
 GameObject:
   m_ObjectHideFlags: 0
@@ -4937,6 +5193,7 @@ GameObject:
   - component: {fileID: 1093188540956901252}
   - component: {fileID: 4788863802371383633}
   - component: {fileID: 3143932059704461346}
+  - component: {fileID: 4365750654895350573}
   m_Layer: 8
   m_Name: actor_rightForarm_collider
   m_TagString: Body (Low Priority)
@@ -5163,6 +5420,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &4365750654895350573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619226268972075679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &8758150014477016384
 GameObject:
   m_ObjectHideFlags: 0
@@ -5177,6 +5450,7 @@ GameObject:
   - component: {fileID: 6579289408716729630}
   - component: {fileID: 5559199497122017667}
   - component: {fileID: 3764330318626028031}
+  - component: {fileID: 4204160903370389488}
   m_Layer: 8
   m_Name: actor_rightHand_collider
   m_TagString: Body (Low Priority)
@@ -5399,6 +5673,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &4204160903370389488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758150014477016384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &9072177003250457536
 GameObject:
   m_ObjectHideFlags: 0
@@ -5413,6 +5703,7 @@ GameObject:
   - component: {fileID: 5738352149327211446}
   - component: {fileID: 8366538359678986552}
   - component: {fileID: 3055615843620521546}
+  - component: {fileID: 3877680335238300144}
   m_Layer: 8
   m_Name: actor_chest_collider
   m_TagString: Body (Medium Priority)
@@ -5642,6 +5933,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3877680335238300144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9072177003250457536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &9099235015929949355
 GameObject:
   m_ObjectHideFlags: 0
@@ -5823,6 +6130,7 @@ GameObject:
   - component: {fileID: 514581737708655881}
   - component: {fileID: 7454550611304700838}
   - component: {fileID: 6644053433166303927}
+  - component: {fileID: 6434347286937208365}
   m_Layer: 19
   m_Name: actor_rightFoot_helper
   m_TagString: Untagged
@@ -5995,6 +6303,22 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.01
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6434347286937208365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9165849248698260492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &9170205322433704570
 GameObject:
   m_ObjectHideFlags: 0
@@ -6009,6 +6333,7 @@ GameObject:
   - component: {fileID: 7660704768435389693}
   - component: {fileID: 388919443835011527}
   - component: {fileID: 1759841872232039751}
+  - component: {fileID: 7536158916089713063}
   m_Layer: 8
   m_Name: actor_rightLeg_collider
   m_TagString: Body (Low Priority)
@@ -6234,3 +6559,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &7536158916089713063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9170205322433704570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
