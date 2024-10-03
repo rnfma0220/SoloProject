@@ -66,38 +66,31 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 2; // 최대 플레이어 수 설정
-        PhotonNetwork.CreateRoom(null, options); // 룸 이름을 null로 설정하면 무작위 이름이 부여됩니다.
+        PhotonNetwork.CreateRoom(null, options);
     }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("방에 입장했습니다. 현재 인원: " + PhotonNetwork.CurrentRoom.PlayerCount);
         MaMatchmaking.SetActive(true);
-        // 방에 입장한 후, 플레이어 수를 확인
         CheckPlayersAndStartGame();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log("새로운 플레이어가 입장했습니다. 현재 인원: " + PhotonNetwork.CurrentRoom.PlayerCount);
-
-        // 새로운 플레이어가 입장할 때마다 플레이어 수를 확인
         CheckPlayersAndStartGame();
     }
 
     private void CheckPlayersAndStartGame()
     {
-        // 플레이어 수가 최대값(2명)에 도달하면 씬 이동
         if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
             Debug.Log("모든 플레이어가 입장했습니다. 게임을 시작합니다.");
             MaMatchmaking.SetActive(false);
 
-            // 마스터 클라이언트만 씬을 로드하고, 자동으로 다른 플레이어들에게도 씬을 동기화
             if (PhotonNetwork.IsMasterClient)
             {
                 SceneManager.sceneLoaded += OnSceneLoaded;
-                PhotonNetwork.LoadLevel("Char"); // 게임 씬으로 이동
+                PhotonNetwork.LoadLevel("Char");
             }
             else
             {
@@ -112,8 +105,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
-
     public void PasswordChange()
     {
         Password_DebugText.text = string.Empty;
