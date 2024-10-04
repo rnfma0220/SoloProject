@@ -8,6 +8,9 @@ using UnityEngine.Networking;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 
 [System.Serializable]
@@ -26,6 +29,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [SerializeField] private TMP_InputField Cheange_Old;
     [SerializeField] private TMP_InputField Cheange_New;
     [SerializeField] private TMP_Text Password_DebugText;
+
+    private Vector3 spawnpoint;
+    private Quaternion spawnquat;
 
     private class Response
     {
@@ -51,6 +57,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Setting.SetActive(true);
     }
 
+    public void Exit_Btu()
+    {
+    #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+    #else
+        Application.Quit();
+    #endif
+    }
+
     public void JoinandCreate()
     {
         PhotonNetwork.JoinRandomRoom();
@@ -58,7 +73,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("방이없습니다. 방을생성합니다.");
         CreateRoom();
     }
 
@@ -84,13 +98,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
-            Debug.Log("모든 플레이어가 입장했습니다. 게임을 시작합니다.");
             MaMatchmaking.SetActive(false);
 
             if (PhotonNetwork.IsMasterClient)
             {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
                 SceneManager.sceneLoaded += OnSceneLoaded;
-                PhotonNetwork.LoadLevel("Char");
+                PhotonNetwork.LoadLevel("GameScene");
             }
             else
             {
@@ -101,10 +115,27 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        PhotonNetwork.Instantiate("actor_humanoid", Vector3.zero, Quaternion.identity);
-        
+        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+
+        if (playerIndex == 0)
+        {
+            spawnpoint = new Vector3(6.3f, 5f, -6.3f);
+            spawnquat = Quaternion.identity;
+        }
+        else
+        {
+            spawnpoint = new Vector3(6.3f, 5f, 11.3f);
+            spawnquat = Quaternion.Euler(0, 180, 0);
+        }
+
+        UserManager.Instance.playerObjects = new GameObject[PhotonNetwork.PlayerList.Length];
+
+        GameObject playerinfo =  PhotonNetwork.Instantiate("actor_humanoid", spawnpoint, spawnquat);
+
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
+
     public void PasswordChange()
     {
         Password_DebugText.text = string.Empty;

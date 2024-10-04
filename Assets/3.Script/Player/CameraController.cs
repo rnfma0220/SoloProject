@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Character;
 
 public class CameraController : MonoBehaviourPun
 {
@@ -24,28 +25,37 @@ public class CameraController : MonoBehaviourPun
 
     private void FixedUpdate()
     {
-        if (!photonView.IsMine) return;
+        if(target.root.gameObject.GetComponent<Actor>().actorState != Actor.ActorState.Dead)
+        {
+            if (!photonView.IsMine) return;
 
-        if (Camera.main == null) return; // 메인 카메라가 없다면 실행 중지
+            if (Camera.main == null) return;
 
-        // 마우스 입력을 받아 카메라 회전 제어
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+            // 마우스 입력을 받아 카메라 회전 제어
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
 
-        // 수평 회전 (Yaw) 업데이트
-        currentYaw += mouseX * sensitivityX;
+            // 수평 회전 (Yaw) 업데이트
+            currentYaw += mouseX * sensitivityX;
 
-        // 수직 회전 (Pitch) 업데이트
-        currentPitch -= mouseY * sensitivityY;
-        currentPitch = Mathf.Clamp(currentPitch, minYAngle, maxYAngle); // 수직 각도 제한
+            // 수직 회전 (Pitch) 업데이트
+            currentPitch -= mouseY * sensitivityY;
+            currentPitch = Mathf.Clamp(currentPitch, minYAngle, maxYAngle); // 수직 각도 제한
 
-        // 카메라 회전 및 위치 계산
-        Quaternion rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
-        Vector3 offset = new Vector3(0, 0, -distanceFromTarget);
+            // 카메라 회전 및 위치 계산
+            Quaternion rotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
+            Vector3 offset = new Vector3(0, 0, -distanceFromTarget);
 
-        // 메인 카메라 위치 및 회전 적용
-        Camera.main.transform.position = target.position + rotation * offset;
-        Camera.main.transform.LookAt(target);
+            // 메인 카메라 위치 및 회전 적용
+            Camera.main.transform.position = target.position + rotation * offset;
+            Camera.main.transform.LookAt(target);
+        }
+        else
+        {
+            if (!photonView.IsMine) return;
+            Camera.main.transform.position = new Vector3(-5f, 13f, 2.86f);
+            Camera.main.transform.rotation = Quaternion.Euler(40f, 90f, 0f);
+        }
     }
 }
 

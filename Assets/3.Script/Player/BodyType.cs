@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Character;
+using Photon.Pun;
 
-public class BodyType : MonoBehaviour
+public class BodyType : MonoBehaviourPun
 {
     [HideInInspector] public Material headMaterial;
     [HideInInspector] public Material bodyMaterial;
-    [HideInInspector] public string HexColor;
+    public string HexColor;
     public BodySet Head;
 	public BodySet Chest;
 	public BodySet Waist;
@@ -60,7 +61,37 @@ public class BodyType : MonoBehaviour
 
     private void OnEnable()
     {
-        HexColor = UserManager.Instance.user.User_Color;
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (currentSceneName == "RoomScene")
+        {
+            HexColor = UserManager.Instance.user.User_Color;
+            SetUp();
+        }
+        else
+        {
+
+            HexColor = UserManager.Instance.user.User_Color;
+            photonView.RPC("RenderRPC", RpcTarget.Others, HexColor);
+        }
+    }
+
+    [PunRPC]
+    public void RenderRPC(string hex)
+    {
+        if (!photonView.IsMine)
+        {
+            BodyType bodyType = GetComponent<BodyType>();
+
+            if (bodyType != null)
+            {
+                bodyType.HexColor = hex;
+            }
+            else
+            {
+                Debug.LogError("BodyType 컴포넌트를 찾을 수 없습니다!");
+            }
+        }
         SetUp();
     }
 
@@ -75,8 +106,8 @@ public class BodyType : MonoBehaviour
 
     private void SetupParts()
     {
-        Transform parent = base.transform.Find("colliders");
-        Root = new BodySet(base.transform, parent);
+        Transform parent = transform.Find("colliders");
+        Root = new BodySet(transform, parent);
         Head = new BodySet("actor_head_collider", parent);
         Chest = new BodySet("actor_chest_collider", parent);
         Waist = new BodySet("actor_waist_collider", parent);

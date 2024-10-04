@@ -23,7 +23,7 @@ namespace Character
         public ActorState actorState;
         public ActorState lastActorState;
 
-        public float PlayerHP = 100f;
+        public float PlayerHP = 50f;
 
         public int PlayerDownCount = 0;
 
@@ -63,6 +63,7 @@ namespace Character
                 movementHandeler.actor = this;
                 movementHandeler.direction = bodyType.Chest.PartTransform.forward;
                 movementHandeler.lookDirection = movementHandeler.direction + new Vector3(0f, 0.1f, 0f);
+                UserManager.Instance.Playerinfo();
             }
         }
 
@@ -71,12 +72,13 @@ namespace Character
             if (photonView.IsMine)
             {
                 UpdateState();
-                UnconsciousCheck();
             }
             else
             {
-                ApplyRemoteState();
+                ExecuteMovement();
             }
+
+            UnconsciousCheck();
         }
 
         private void UnconsciousCheck()
@@ -93,11 +95,6 @@ namespace Character
                     UnconsciousMass();
                 }
             }
-        }
-
-        private void ApplyRemoteState()
-        {
-            ExecuteMovement();
         }
 
         private void ExecuteMovement()
@@ -130,26 +127,29 @@ namespace Character
 
         private void UnconsciousMass()
         {
-            bodyType.Head.PartRigidbody.mass = 1f;
-            bodyType.Chest.PartRigidbody.mass = 1f;
-            bodyType.Waist.PartRigidbody.mass = 1f;
-            bodyType.Stomach.PartRigidbody.mass = 1f;
-            bodyType.Hips.PartRigidbody.mass = 1f;
-            bodyType.Crotch.PartRigidbody.mass = 1f;
-            bodyType.LeftArm.PartRigidbody.mass = 1f;
-            bodyType.LeftForarm.PartRigidbody.mass = 1f;
-            bodyType.LeftHand.PartRigidbody.mass = 1f;
-            bodyType.LeftThigh.PartRigidbody.mass = 1f;
-            bodyType.LeftLeg.PartRigidbody.mass = 1f;
-            bodyType.LeftFoot.PartRigidbody.mass = 1f;
-            bodyType.RightArm.PartRigidbody.mass = 1f;
-            bodyType.RightForarm.PartRigidbody.mass = 1f;
-            bodyType.RightHand.PartRigidbody.mass = 1f;
-            bodyType.RightThigh.PartRigidbody.mass = 1f;
-            bodyType.RightLeg.PartRigidbody.mass = 1f;
-            bodyType.RightFoot.PartRigidbody.mass = 1f;
-            bodyType.Ball.PartRigidbody.mass = 1f;
-            bodyType.Spring.PartRigidbody.mass = 1f;
+            if(actorState == ActorState.Unconscious)
+            {
+                bodyType.Head.PartRigidbody.mass = 1f;
+                bodyType.Chest.PartRigidbody.mass = 1f;
+                bodyType.Waist.PartRigidbody.mass = 1f;
+                bodyType.Stomach.PartRigidbody.mass = 1f;
+                bodyType.Hips.PartRigidbody.mass = 1f;
+                bodyType.Crotch.PartRigidbody.mass = 1f;
+                bodyType.LeftArm.PartRigidbody.mass = 1f;
+                bodyType.LeftForarm.PartRigidbody.mass = 1f;
+                bodyType.LeftHand.PartRigidbody.mass = 1f;
+                bodyType.LeftThigh.PartRigidbody.mass = 1f;
+                bodyType.LeftLeg.PartRigidbody.mass = 1f;
+                bodyType.LeftFoot.PartRigidbody.mass = 1f;
+                bodyType.RightArm.PartRigidbody.mass = 1f;
+                bodyType.RightForarm.PartRigidbody.mass = 1f;
+                bodyType.RightHand.PartRigidbody.mass = 1f;
+                bodyType.RightThigh.PartRigidbody.mass = 1f;
+                bodyType.RightLeg.PartRigidbody.mass = 1f;
+                bodyType.RightFoot.PartRigidbody.mass = 1f;
+                bodyType.Ball.PartRigidbody.mass = 1f;
+                bodyType.Spring.PartRigidbody.mass = 1f;
+            }
         }
 
         private void UpdateState()
@@ -202,6 +202,19 @@ namespace Character
             inputSpamForceModifier = Mathf.Clamp(inputSpamForceModifier + Time.deltaTime / 2f, 0.01f, 1f);
         }
 
+        public void DeadPlayer()
+        {
+            StartCoroutine(Dead_co());
+        }
+
+        private IEnumerator Dead_co()
+        {
+            yield return new WaitForSeconds(3f);
+
+            GameObject player = gameObject;
+
+            PhotonNetwork.Destroy(player);
+        }
         public void AttackDamage(GameObject target, float damage)
         {
             PhotonView targetPhotonView = target.GetComponent<PhotonView>();
