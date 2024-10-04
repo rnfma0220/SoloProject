@@ -3565,6 +3565,7 @@ GameObject:
   - component: {fileID: 8745722695543604377}
   - component: {fileID: 2429261717033749998}
   - component: {fileID: 6084706805276586956}
+  - component: {fileID: 2956812870664629213}
   m_Layer: 0
   m_Name: actor_humanoid
   m_TagString: Untagged
@@ -3834,6 +3835,27 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 2344179667467550508}
   - {fileID: 6084706805276586956}
+  - {fileID: 2956812870664629213}
+  - {fileID: 2186169404027685821}
+  - {fileID: 3648712763616332634}
+  - {fileID: 7682229760095896974}
+  - {fileID: 3944726104597450896}
+  - {fileID: 662898112831248506}
+  - {fileID: 3024808040784049914}
+  - {fileID: 1860808466944991434}
+  - {fileID: 7536158916089713063}
+  - {fileID: 5474821098027633396}
+  - {fileID: 3877680335238300144}
+  - {fileID: 7745692559255393648}
+  - {fileID: 2288390715500762744}
+  - {fileID: 6434347286937208365}
+  - {fileID: 5674975115699350282}
+  - {fileID: 6907081698568737343}
+  - {fileID: 2900910490282096907}
+  - {fileID: 7473678110952540642}
+  - {fileID: 4365750654895350573}
+  - {fileID: 14576792343541968}
+  - {fileID: 4204160903370389488}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -3853,6 +3875,22 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &2956812870664629213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6013155331954487481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &6034117102885511903
 GameObject:
   m_ObjectHideFlags: 0
