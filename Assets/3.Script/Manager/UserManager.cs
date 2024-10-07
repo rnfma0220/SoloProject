@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
@@ -27,7 +29,10 @@ public class UserManager : MonoBehaviourPunCallbacks
 
     public User user;
 
-    public GameObject[] playerObjects = new GameObject[2];
+    public GameObject[] playerObjects;
+
+    [SerializeField] private GameObject GamePanel;
+    [SerializeField] private TMP_Text GameText;
 
     private bool GameEnd = false;
 
@@ -46,23 +51,23 @@ public class UserManager : MonoBehaviourPunCallbacks
 
     public void Playerinfo()
     {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            PhotonView[] photonplayer = FindObjectsOfType<PhotonView>();
+        playerObjects = new GameObject[2];
 
-            for (int i = 0; i < photonplayer.Length; i++)
-            {
-                playerObjects[i] = photonplayer[i].gameObject;
-            }
+        PhotonView[] photonplayer = FindObjectsOfType<PhotonView>();
+
+        for (int i = 0; i < photonplayer.Length; i++)
+        {
+            playerObjects[i] = photonplayer[i].gameObject;
         }
     }
 
     private void Update()
     {
-        if (PhotonNetwork.IsMasterClient || GameEnd == false)
+        if (GameEnd == false)
         {
             CheckPlayersState();
         }
+               
     }
 
     private void CheckPlayersState()
@@ -100,10 +105,45 @@ public class UserManager : MonoBehaviourPunCallbacks
 
         if (winnerActor != null)
         {
-            Debug.Log("Winner is: " + winnerActor.Owner.NickName);
+            GamePanel.SetActive(true);
+            GameText.text = string.Empty;
+            GameText.text = $"게임 승리자 : {winnerActor.Owner.NickName}\n잠시 후 로비로 퇴장됩니다.";
             GameEnd = true;
+            StartCoroutine(GameExit());
         }
     }
 
+    private IEnumerator GameExit()
+    {
+        yield return new WaitForSeconds(3f);
+
+        GamePanel.SetActive(false);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("RoomScene");
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PhotonNetwork.LeaveRoom();
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public override void OnLeftRoom()
+    {
+        GameEnd = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        SceneManager.LoadScene("LoginScene");
+    }
 }
 

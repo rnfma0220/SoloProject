@@ -104,7 +104,7 @@ public class BodyType : MonoBehaviourPun
         SetupColliderCheck();
     }
 
-    private void SetupParts()
+    public void SetupParts()
     {
         Transform parent = transform.Find("colliders");
         Root = new BodySet(transform, parent);

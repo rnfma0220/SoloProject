@@ -288,7 +288,6 @@ namespace Character
             Transform Hand = null;
             Rigidbody part = null;
             Rigidbody part2 = null;
-            FixedJoint HandJoint;
 
             switch (side)
             {
@@ -301,12 +300,7 @@ namespace Character
 
                     if (!Hand.gameObject.GetComponent<FixedJoint>())
                     {
-                        HandJoint = Hand.gameObject.AddComponent<FixedJoint>();
-                        HandJoint.connectedBody = target.GetComponent<Rigidbody>();
-                        HandJoint.breakForce = 30000f;
-                        HandJoint.breakTorque = 30000f;
-                        HandJoint.enableCollision = false;
-                        HandJoint.enablePreprocessing = true;
+                        actor.HandJointCreate(target.transform.root.GetComponent<PhotonView>().ViewID, side.ToString(), target.name);
                     }
                     break;
 
@@ -319,13 +313,7 @@ namespace Character
 
                     if (!Hand.gameObject.GetComponent<FixedJoint>())
                     {
-                        HandJoint = Hand.gameObject.AddComponent<FixedJoint>();
-
-                        HandJoint.connectedBody = target.GetComponent<Rigidbody>();
-                        HandJoint.breakForce = 30000f;
-                        HandJoint.breakTorque = 30000f;
-                        HandJoint.enableCollision = false;
-                        HandJoint.enablePreprocessing = true;
+                        actor.HandJointCreate(target.transform.root.GetComponent<PhotonView>().ViewID, side.ToString(), target.name);
                     }
                     break;
             }
@@ -336,5 +324,6 @@ namespace Character
             AlignToVector(part, transform.up, -zero, 0.01f, 10f);
             AlignToVector(part2, transform2.up, -zero, 0.01f, 10f);
         }
+
     }
 }

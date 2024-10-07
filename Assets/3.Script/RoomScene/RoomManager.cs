@@ -22,6 +22,11 @@ public class PasswordChangeData
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private Button RoomCreate_Btn;
+    [SerializeField] private Button Changeinfo_Btn;
+    [SerializeField] private Button Setting_Btn;
+    [SerializeField] private Button Logout_Btn;
+
     [SerializeField] private GameObject Changeinfo;
     [SerializeField] private GameObject Setting;
     [SerializeField] private GameObject MaMatchmaking;
@@ -57,13 +62,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Setting.SetActive(true);
     }
 
-    public void Exit_Btu()
+    public void Logout_Btu()
     {
-    #if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
-    #else
-        Application.Quit();
-    #endif
+        PhotonNetwork.Disconnect();
+    }
+
+    public void Matchmaking_Close()
+    {
+        MaMatchmaking.SetActive(false);
+        RoomCreate_Btn.interactable = true;
+        Changeinfo_Btn.interactable = true;
+        Setting_Btn.interactable = true;
+        Logout_Btn.interactable = true;
+        PhotonNetwork.LeaveRoom();
     }
 
     public void JoinandCreate()
@@ -86,6 +97,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         MaMatchmaking.SetActive(true);
+        RoomCreate_Btn.interactable = false;
+        Changeinfo_Btn.interactable = false;
+        Setting_Btn.interactable = false;
+        Logout_Btn.interactable = false;
         CheckPlayersAndStartGame();
     }
 
@@ -159,7 +174,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         string uri = "https://kiwebmeta7mh.o-r.kr/api/changepassword";
 
-        string token = PlayerPrefs.GetString("playertoken");
+        string token = UserManager.Instance.user.Token;
 
         PasswordChangeData data = new PasswordChangeData()
         {

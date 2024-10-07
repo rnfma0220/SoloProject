@@ -61,8 +61,6 @@ namespace Character
             {
                 movementHandeler = new MovementHandeler_humanoid();
                 movementHandeler.actor = this;
-                Debug.Log(movementHandeler);
-                Debug.Log(movementHandeler.direction);
                 movementHandeler.direction = bodyType.Chest.PartTransform.forward;
                 movementHandeler.lookDirection = movementHandeler.direction + new Vector3(0f, 0.1f, 0f);
                 UserManager.Instance.Playerinfo();
@@ -217,6 +215,7 @@ namespace Character
 
             PhotonNetwork.Destroy(player);
         }
+
         public void AttackDamage(GameObject target, float damage)
         {
             PhotonView targetPhotonView = target.GetComponent<PhotonView>();
@@ -242,6 +241,42 @@ namespace Character
                     // ≈∏∞Ÿ Actor¿« HP ∞®º“
                     targetActor.PlayerHP -= damage;
                 }
+            }
+        }
+
+        public void HandJointCreate(int viewID, string Hand, string targetname)
+        {
+            photonView.RPC("HandJoint", RpcTarget.All, viewID, Hand, targetname);
+        }
+
+        [PunRPC]
+        public void HandJoint(int viewID, string Hand, string targetname)
+        {
+            FixedJoint Handjoint;
+
+            if (Hand == MovementHandeler.Side.Left.ToString())
+            {
+                Handjoint = bodyType.LeftHand.PartTransform.gameObject.AddComponent<FixedJoint>();
+                GameObject player = PhotonView.Find(viewID).gameObject;
+                GameObject playerhand = player.transform.Find($"colliders/{targetname}").gameObject;
+
+                Handjoint.connectedBody = playerhand.GetComponent<Rigidbody>();
+                Handjoint.breakForce = 30000f;
+                Handjoint.breakTorque = 30000f;
+                Handjoint.enableCollision = false;
+                Handjoint.enablePreprocessing = true;
+            }
+            else
+            {
+                Handjoint = bodyType.LeftHand.PartTransform.gameObject.AddComponent<FixedJoint>();
+                GameObject player = PhotonView.Find(viewID).gameObject;
+                GameObject playerhand = player.transform.Find($"colliders/{targetname}").gameObject;
+
+                Handjoint.connectedBody = playerhand.GetComponent<Rigidbody>();
+                Handjoint.breakForce = 30000f;
+                Handjoint.breakTorque = 30000f;
+                Handjoint.enableCollision = false;
+                Handjoint.enablePreprocessing = true;
             }
         }
 

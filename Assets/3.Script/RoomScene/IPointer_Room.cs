@@ -18,8 +18,11 @@ public class IPointer_Room : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.localScale = Scale * 1.3f;
-        text.color = Color.yellow;
+        if(gameObject.GetComponent<Button>().interactable == true)
+        {
+            transform.localScale = Scale * 1.3f;
+            text.color = Color.yellow;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
