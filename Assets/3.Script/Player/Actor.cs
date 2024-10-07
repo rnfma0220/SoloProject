@@ -61,6 +61,8 @@ namespace Character
             {
                 movementHandeler = new MovementHandeler_humanoid();
                 movementHandeler.actor = this;
+                Debug.Log(movementHandeler);
+                Debug.Log(movementHandeler.direction);
                 movementHandeler.direction = bodyType.Chest.PartTransform.forward;
                 movementHandeler.lookDirection = movementHandeler.direction + new Vector3(0f, 0.1f, 0f);
                 UserManager.Instance.Playerinfo();

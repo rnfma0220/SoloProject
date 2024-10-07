@@ -9393,7 +9393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headMaterial: {fileID: 0}
   bodyMaterial: {fileID: 0}
-  HexColor: FF0000
+  HexColor: FFFFFF
 --- !u!1 &5779445679842218612
 GameObject:
   m_ObjectHideFlags: 0

@@ -220,6 +220,14 @@ public class BodyType : MonoBehaviourPun
 
     public void ColorChange()
     {
+        if(headMaterial == null)
+        {
+            SetupParts();
+        }
+
+        headMaterial = MeshHead.PartRenderer.material;
+        bodyMaterial = MeshBody.PartRenderer.material;
+
         headMaterial.color = HexToColor(HexColor);
         bodyMaterial.color = HexToColor(HexColor);
         MeshHead.PartRenderer.material = headMaterial;

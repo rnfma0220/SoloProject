@@ -29,6 +29,8 @@ public class UserManager : MonoBehaviourPunCallbacks
 
     public GameObject[] playerObjects = new GameObject[2];
 
+    private bool GameEnd = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -57,13 +59,12 @@ public class UserManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient || GameEnd == false)
         {
             CheckPlayersState();
         }
     }
 
-    // 플레이어 상태 체크하여 승리자 처리
     private void CheckPlayersState()
     {
         int alivePlayers = 0;
@@ -77,11 +78,10 @@ public class UserManager : MonoBehaviourPunCallbacks
             {
                 Actor actor = playerObject.GetComponent<Actor>();
 
-                // Actor 상태가 Dead가 아니면 살아있는 플레이어로 간주
                 if (actor != null && actor.actorState != Actor.ActorState.Dead)
                 {
                     alivePlayers++;
-                    lastAlivePlayer = playerObject; // 마지막으로 살아남은 플레이어 저장
+                    lastAlivePlayer = playerObject;
                 }
             }
         }
@@ -101,7 +101,7 @@ public class UserManager : MonoBehaviourPunCallbacks
         if (winnerActor != null)
         {
             Debug.Log("Winner is: " + winnerActor.Owner.NickName);
-
+            GameEnd = true;
         }
     }
 
