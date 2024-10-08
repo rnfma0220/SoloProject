@@ -248,12 +248,7 @@ namespace Character
                 LeftisHolding = false;
                 LeftholdTimer = 0f;
 
-                FixedJoint joint = actor.bodyType.LeftHand.PartTransform.GetComponent<FixedJoint>();
-
-                if (joint != null)
-                {
-                    Destroy(joint);
-                }
+                actor.HandJointDelete("left");
 
             }
         }
@@ -276,12 +271,7 @@ namespace Character
                 RightisHolding = false;
                 RightholdTimer = 0f;
 
-                FixedJoint joint = actor.bodyType.RightHand.PartTransform.GetComponent<FixedJoint>();
-
-                if (joint != null)
-                {
-                    Destroy(joint);
-                }
+                actor.HandJointDelete("right");
             }
         }
 

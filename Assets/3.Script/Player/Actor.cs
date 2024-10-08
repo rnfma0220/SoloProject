@@ -23,7 +23,7 @@ namespace Character
         public ActorState actorState;
         public ActorState lastActorState;
 
-        public float PlayerHP = 50f;
+        public float PlayerHP = 30f;
 
         public int PlayerDownCount = 0;
 
@@ -75,7 +75,7 @@ namespace Character
             }
             else
             {
-                ExecuteMovement();
+                UpdateState();
             }
 
             UnconsciousCheck();
@@ -95,34 +95,6 @@ namespace Character
                     UnconsciousMass();
                 }
             }
-        }
-
-        private void ExecuteMovement()
-        {
-            switch (actorState)
-            {
-                case ActorState.Dead:
-                    movementHandeler.Dead();
-                    break;
-                case ActorState.Unconscious:
-                    movementHandeler.Unconscious();
-                    break;
-                case ActorState.Stand:
-                    movementHandeler.Stand();
-                    break;
-                case ActorState.Run:
-                    movementHandeler.Run();
-                    break;
-                case ActorState.Jump:
-                    movementHandeler.Jump();
-                    break;
-            }
-        }
-
-        [PunRPC]
-        public void SyncActorState(int state)
-        {
-            actorState = (ActorState)state;
         }
 
         private void UnconsciousMass()
@@ -157,8 +129,6 @@ namespace Character
             if (actorState != lastActorState)
             {
                 movementHandeler.stateChange = true;
-
-                photonView.RPC("SyncActorState", RpcTarget.Others, actorState);
             }
             else
             {
@@ -230,7 +200,6 @@ namespace Character
         [PunRPC]
         public void ApplyDamage(int targetViewID, float damage)
         {
-            // PhotonView ID로 타겟을 찾음
             PhotonView targetView = PhotonView.Find(targetViewID);
 
             if (targetView != null)
@@ -238,7 +207,6 @@ namespace Character
                 Actor targetActor = targetView.GetComponent<Actor>();
                 if (targetActor != null)
                 {
-                    // 타겟 Actor의 HP 감소
                     targetActor.PlayerHP -= damage;
                 }
             }
@@ -247,6 +215,11 @@ namespace Character
         public void HandJointCreate(int viewID, string Hand, string targetname)
         {
             photonView.RPC("HandJoint", RpcTarget.All, viewID, Hand, targetname);
+        }
+
+        public void HandJointDelete(string Hand)
+        {
+            photonView.RPC("HandDelete", RpcTarget.All, Hand);
         }
 
         [PunRPC]
@@ -277,6 +250,29 @@ namespace Character
                 Handjoint.breakTorque = 30000f;
                 Handjoint.enableCollision = false;
                 Handjoint.enablePreprocessing = true;
+            }
+        }
+
+        [PunRPC]
+        public void HandDelete(string Hand)
+        {
+            if (Hand == "left")
+            {
+                FixedJoint joint = bodyType.LeftHand.PartTransform.GetComponent<FixedJoint>();
+
+                if (joint != null)
+                {
+                    Destroy(joint);
+                }
+            }
+            else
+            {
+                FixedJoint joint = bodyType.RightHand.PartTransform.GetComponent<FixedJoint>();
+
+                if (joint != null)
+                {
+                    Destroy(joint);
+                }
             }
         }
 
