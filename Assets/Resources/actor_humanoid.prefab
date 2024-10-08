@@ -3605,7 +3605,7 @@ MonoBehaviour:
   bodyType: {fileID: 0}
   actorState: 2
   lastActorState: 2
-  PlayerHP: 100
+  PlayerHP: 30
   PlayerDownCount: 0
   JumpCheck: 0
   LeftAttack: 0

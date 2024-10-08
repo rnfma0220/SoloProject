@@ -91,14 +91,12 @@ public class UserManager : MonoBehaviourPunCallbacks
             }
         }
 
-        // 한 명만 살아있으면 승리 처리
         if (alivePlayers == 1 && lastAlivePlayer != null)
         {
             DeclareWinner(lastAlivePlayer);
         }
     }
 
-    // 승리 처리
     private void DeclareWinner(GameObject winner)
     {
         PhotonView winnerActor = winner.GetComponent<PhotonView>();
@@ -115,7 +113,7 @@ public class UserManager : MonoBehaviourPunCallbacks
 
     private IEnumerator GameExit()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
 
         GamePanel.SetActive(false);
 
