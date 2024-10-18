@@ -71,37 +71,38 @@ namespace Character
                         actor.RightAttack = false;
                     }
                 }
+            }
 
-                if (gameObject.name == "actor_rightHand_collider")
+            if (gameObject.name == "actor_rightHand_collider")
+            {
+                actor.movementHandeler.RightHandObject = collision.gameObject;
+
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.LeftAttack &&
+                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Unconscious &&
+                    collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Dead)
                 {
-                    actor.movementHandeler.RightHandObject = collision.gameObject;
+                    float impactForce = collision.relativeVelocity.magnitude;
 
-                    if (collision.gameObject.layer == LayerMask.NameToLayer("Actor") && actor.RightAttack &&
-                        collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Unconscious &&
-                        collision.gameObject.transform.root.GetComponent<Actor>().actorState != Actor.ActorState.Dead)
+                    // 데미지 계산
+                    float Headdamage = impactForce * 3f;
+                    float BodyDamage = impactForce;
+
+                    // 데미지 받을 객체 가져오기
+                    GameObject target = collision.gameObject.transform.root.gameObject;
+
+                    if (collision.gameObject.name == "actor_head_collider")
                     {
-                        float impactForce = collision.relativeVelocity.magnitude;
-
-                        // 데미지 계산
-                        float Headdamage = impactForce * 3f;
-                        float BodyDamage = impactForce;
-
-                        // 데미지 받을 객체 가져오기
-                        GameObject target = collision.gameObject.transform.root.gameObject;
-
-                        if (collision.gameObject.name == "actor_head_collider")
-                        {
-                            actor.AttackDamage(target, Headdamage);
-                            actor.RightAttack = false;
-                        }
-                        else
-                        {
-                            actor.AttackDamage(target, BodyDamage);
-                            actor.RightAttack = false;
-                        }
+                        actor.AttackDamage(target, Headdamage);
+                        actor.RightAttack = false;
+                    }
+                    else
+                    {
+                        actor.AttackDamage(target, BodyDamage);
+                        actor.RightAttack = false;
                     }
                 }
             }
+
         }
 
         private void OnCollisionExit(Collision collision)

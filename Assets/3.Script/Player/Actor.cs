@@ -229,6 +229,8 @@ namespace Character
 
             if (Hand == MovementHandeler.Side.Left.ToString())
             {
+                if (bodyType.LeftHand.PartTransform.gameObject.GetComponent<FixedJoint>()) return;
+
                 Handjoint = bodyType.LeftHand.PartTransform.gameObject.AddComponent<FixedJoint>();
                 GameObject player = PhotonView.Find(viewID).gameObject;
                 GameObject playerhand = player.transform.Find($"colliders/{targetname}").gameObject;
@@ -241,7 +243,9 @@ namespace Character
             }
             else
             {
-                Handjoint = bodyType.LeftHand.PartTransform.gameObject.AddComponent<FixedJoint>();
+                if (bodyType.RightHand.PartTransform.gameObject.GetComponent<FixedJoint>()) return;
+
+                Handjoint = bodyType.RightHand.PartTransform.gameObject.AddComponent<FixedJoint>();
                 GameObject player = PhotonView.Find(viewID).gameObject;
                 GameObject playerhand = player.transform.Find($"colliders/{targetname}").gameObject;
 
@@ -285,6 +289,7 @@ namespace Character
                 stream.SendNext(PlayerDownCount);
                 stream.SendNext(movementHandeler.direction);
                 stream.SendNext(movementHandeler.lookDirection);
+                stream.SendNext(movementHandeler.Sit);
             }
             else 
             {
@@ -293,6 +298,7 @@ namespace Character
                 PlayerDownCount = (int)stream.ReceiveNext();
                 movementHandeler.direction = (Vector3)stream.ReceiveNext();
                 movementHandeler.lookDirection = (Vector3)stream.ReceiveNext();
+                movementHandeler.Sit = (bool)stream.ReceiveNext();
             }
         }
     }

@@ -122,8 +122,6 @@ namespace Character
 
         public override void Jump()
         {
-            Debug.Log("호출갯수확인");
-
             AlignToVector(actor.bodyType.Head.PartRigidbody, actor.bodyType.Head.PartTransform.forward, lookDirection, 0.1f, 2.5f * actor.applyedForce);
             AlignToVector(actor.bodyType.Head.PartRigidbody, actor.bodyType.Head.PartTransform.up, Vector3.up, 0.1f, 2.5f * actor.applyedForce);
             AlignToVector(actor.bodyType.Chest.PartRigidbody, actor.bodyType.Chest.PartTransform.forward, direction, 0.1f, 4f * actor.applyedForce);
@@ -165,7 +163,7 @@ namespace Character
                 actor.actorState = Actor.ActorState.Stand;
                 actor.PlayerDownCount++;
                 actor.PlayerHP = 100f;
-                DownTimer = 5f;
+                DownTimer = 10f;
             }
         }
 
